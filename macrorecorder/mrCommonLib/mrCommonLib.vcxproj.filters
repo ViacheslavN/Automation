@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="desktop">
+      <UniqueIdentifier>{84a5f310-fc01-4cc5-b28e-5652e2309629}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="desktop\win">
+      <UniqueIdentifier>{de5a8ef8-2f99-4344-af51-0506ff6e4558}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="desktop\x11region">
+      <UniqueIdentifier>{eb5570c9-ae82-4580-81fe-7ab16e561826}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="desktop\differ">
+      <UniqueIdentifier>{898046f9-96e2-4b58-8f9f-a5539605d038}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="desktop\win\dx">
+      <UniqueIdentifier>{f9674160-07d0-4557-a89a-3a9351f34fa1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\pixelformat.h">
+      <Filter>desktop</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\geometry.h">
+      <Filter>desktop</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\Frame.h">
+      <Filter>desktop</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\win\FrameDib.h">
+      <Filter>desktop\win</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\win\Hbitmap.h">
+      <Filter>desktop\win</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\Color.h">
+      <Filter>desktop</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\win\BitmapInfo.h">
+      <Filter>desktop\win</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\ScreenCapturer.h">
+      <Filter>desktop</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\win\ScreenCapturerGdi.h">
+      <Filter>desktop\win</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\win\HDC.h">
+      <Filter>desktop\win</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\region.h">
+      <Filter>desktop</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\x11region\x11region.h">
+      <Filter>desktop\x11region</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\win\ScreenUtils.h">
+      <Filter>desktop\win</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\win\GdiObject.h">
+      <Filter>desktop\win</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\differ\differ.h">
+      <Filter>desktop\differ</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\differ\diff_block_16bpp_c.h">
+      <Filter>desktop\differ</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\differ\diff_block_32bpp_avx2.h">
+      <Filter>desktop\differ</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\differ\diff_block_32bpp_c.h">
+      <Filter>desktop\differ</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\differ\diff_block_32bpp_sse2.h">
+      <Filter>desktop\differ</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\differ\diff_block_32bpp_sse3.h">
+      <Filter>desktop\differ</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\win\dx\d3d_device.h">
+      <Filter>desktop\win\dx</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\win\DesktopEnvironment.h">
+      <Filter>desktop\win</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\win\HandleObject.h">
+      <Filter>desktop\win</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\win\Impersonator.h">
+      <Filter>desktop\win</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="mrCommonLib.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="desktop\pixelformat.cpp">
+      <Filter>desktop</Filter>
+    </ClCompile>
+    <ClCompile Include="desktop\geometry.cpp">
+      <Filter>desktop</Filter>
+    </ClCompile>
+    <ClCompile Include="desktop\Color.cpp">
+      <Filter>desktop</Filter>
+    </ClCompile>
+    <ClCompile Include="desktop\win\Hbitmap.cpp">
+      <Filter>desktop\win</Filter>
+    </ClCompile>
+    <ClCompile Include="desktop\win\FrameDib.cpp">
+      <Filter>desktop\win</Filter>
+    </ClCompile>
+    <ClCompile Include="desktop\win\ScreenCapturerGdi.cpp">
+      <Filter>desktop\win</Filter>
+    </ClCompile>
+    <ClCompile Include="desktop\region.cpp">
+      <Filter>desktop</Filter>
+    </ClCompile>
+    <ClCompile Include="desktop\x11region\x11region.c">
+      <Filter>desktop\x11region</Filter>
+    </ClCompile>
+    <ClCompile Include="desktop\win\HDC.cpp">
+      <Filter>desktop\win</Filter>
+    </ClCompile>
+    <ClCompile Include="desktop\win\ScreenUtils.cpp">
+      <Filter>desktop\win</Filter>
+    </ClCompile>
+    <ClCompile Include="desktop\differ\differ.cpp">
+      <Filter>desktop\differ</Filter>
+    </ClCompile>
+    <ClCompile Include="desktop\differ\diff_block_16bpp_c.cpp">
+      <Filter>desktop\differ</Filter>
+    </ClCompile>
+    <ClCompile Include="desktop\differ\diff_block_32bpp_avx2.cpp">
+      <Filter>desktop\differ</Filter>
+    </ClCompile>
+    <ClCompile Include="desktop\differ\diff_block_32bpp_c.cpp">
+      <Filter>desktop\differ</Filter>
+    </ClCompile>
+    <ClCompile Include="desktop\differ\diff_block_32bpp_sse2.cpp">
+      <Filter>desktop\differ</Filter>
+    </ClCompile>
+    <ClCompile Include="desktop\differ\diff_block_32bpp_sse3.cpp">
+      <Filter>desktop\differ</Filter>
+    </ClCompile>
+    <ClCompile Include="desktop\win\dx\d3d_device.cpp">
+      <Filter>desktop\win\dx</Filter>
+    </ClCompile>
+    <ClCompile Include="desktop\win\DesktopEnvironment.cpp">
+      <Filter>desktop\win</Filter>
+    </ClCompile>
+    <ClCompile Include="desktop\win\Impersonator.cpp">
+      <Filter>desktop\win</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
