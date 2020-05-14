@@ -9,17 +9,27 @@
 
 // add headers that you want to pre-compile here
 #include "framework.h"
+#include <optional>
 
 #include "../../../CommonLib/CommonLib.h"
-
+#include "../../../CommonLib/alloc/alloc.h"
 #include "../../../CommonLib/filesystem/File.h"
 #include "../../../CommonLib/str/convertToString.h"
 #include "../../../CommonLib/str/StringEncoding.h"
+#include "../../../CommonLib/log/logger.h"
+#include "../../../CommonLib/log/LogInfo.h"
 
 #ifdef _WIN32
 
 #include <dwmapi.h>
 #include <wtsapi32.h>
+#include <D3D11.h>
+#include <DXGI.h>
+#include <comdef.h>
+#include <D3DCommon.h>
+
+#include <wrl/client.h>
+
 #include "../../../CommonLib/exception/WinExc.h"
 #include "../../../CommonLib/exception/ComExc.h"
 #endif

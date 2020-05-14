@@ -30,8 +30,10 @@ namespace mrCommonLib
 			virtual void CopyFrameInfoFrom(IFramePtr other) = 0;
 
 			virtual CRegionPtr UpdatedRegion() = 0;
+			//virtual IFramePtr Clone() = 0;
 		};
 
+		template<class TFrame>
  		class CFrameQueue
 		{
 		public:
@@ -46,7 +48,7 @@ namespace mrCommonLib
 				m_current = (m_current + 1) % gueueLength;
 			}
 
-			void ReplaceCurrentFrame(IFramePtr frame)
+			void ReplaceCurrentFrame(TFrame frame)
 			{
 				m_frames[m_current] = frame;
 			}
@@ -59,12 +61,12 @@ namespace mrCommonLib
 				m_current = 0;
 			}
 
-			IFramePtr currentFrame() const
+			TFrame currentFrame() const
 			{
 				return m_frames[m_current];
 			}
 
-			IFramePtr previousFrame() const
+			TFrame previousFrame() const
 			{
 				return m_frames[(m_current + gueueLength - 1) % gueueLength];
 			}
@@ -73,8 +75,10 @@ namespace mrCommonLib
 			int m_current = 0;
 
 			static const int gueueLength = 2;
-			std::vector<IFramePtr> m_frames;
+			std::vector<TFrame> m_frames;
 
 		};
+
+		void SaveFrameToFile(IFramePtr pFrame, const astr& fileName);
 	}
 }

@@ -28,6 +28,9 @@
     <Filter Include="desktop\win\dx">
       <UniqueIdentifier>{f9674160-07d0-4557-a89a-3a9351f34fa1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="video">
+      <UniqueIdentifier>{89420d55-acff-411b-9e43-33f0a469c2da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -96,9 +99,6 @@
     <ClInclude Include="desktop\differ\diff_block_32bpp_sse3.h">
       <Filter>desktop\differ</Filter>
     </ClInclude>
-    <ClInclude Include="desktop\win\dx\d3d_device.h">
-      <Filter>desktop\win\dx</Filter>
-    </ClInclude>
     <ClInclude Include="desktop\win\DesktopEnvironment.h">
       <Filter>desktop\win</Filter>
     </ClInclude>
@@ -107,6 +107,54 @@
     </ClInclude>
     <ClInclude Include="desktop\win\Impersonator.h">
       <Filter>desktop\win</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\win\DisplayConfigurationMonitor.h">
+      <Filter>desktop\win</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\win\dx\D3dDevice.h">
+      <Filter>desktop\win\dx</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\BaseFrame.h">
+      <Filter>desktop</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\DataFrame.h">
+      <Filter>desktop</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\frame_rotation.h">
+      <Filter>desktop</Filter>
+    </ClInclude>
+    <ClInclude Include="mrCommonLib_lib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="video\VideoEncoder.h">
+      <Filter>video</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\win\dx\DxgiAdapterDuplicator.h">
+      <Filter>desktop\win\dx</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\win\dx\DxgiContext.h">
+      <Filter>desktop\win\dx</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\win\dx\DxgiDuplicatorController.h">
+      <Filter>desktop\win\dx</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\win\dx\DxgiFrame.h">
+      <Filter>desktop\win\dx</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\win\dx\DxgiOutputDuplicator.h">
+      <Filter>desktop\win\dx</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\win\dx\DxgiTexture.h">
+      <Filter>desktop\win\dx</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\win\dx\DxgiTextureMapping.h">
+      <Filter>desktop\win\dx</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\win\dx\DxgiTextureStaging.h">
+      <Filter>desktop\win\dx</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\win\dx\ScreenCapturerDxgi.h">
+      <Filter>desktop\win\dx</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -164,14 +212,53 @@
     <ClCompile Include="desktop\differ\diff_block_32bpp_sse3.cpp">
       <Filter>desktop\differ</Filter>
     </ClCompile>
-    <ClCompile Include="desktop\win\dx\d3d_device.cpp">
-      <Filter>desktop\win\dx</Filter>
-    </ClCompile>
     <ClCompile Include="desktop\win\DesktopEnvironment.cpp">
       <Filter>desktop\win</Filter>
     </ClCompile>
     <ClCompile Include="desktop\win\Impersonator.cpp">
       <Filter>desktop\win</Filter>
+    </ClCompile>
+    <ClCompile Include="desktop\win\DisplayConfigurationMonitor.cpp">
+      <Filter>desktop\win</Filter>
+    </ClCompile>
+    <ClCompile Include="desktop\win\dx\D3dDevice.cpp">
+      <Filter>desktop\win\dx</Filter>
+    </ClCompile>
+    <ClCompile Include="desktop\DataFrame.cpp">
+      <Filter>desktop</Filter>
+    </ClCompile>
+    <ClCompile Include="desktop\frame_rotation.cpp">
+      <Filter>desktop</Filter>
+    </ClCompile>
+    <ClCompile Include="desktop\Frame.cpp">
+      <Filter>desktop</Filter>
+    </ClCompile>
+    <ClCompile Include="desktop\win\dx\DxgiAdapterDuplicator.cpp">
+      <Filter>desktop\win\dx</Filter>
+    </ClCompile>
+    <ClCompile Include="desktop\win\dx\DxgiContext.cpp">
+      <Filter>desktop\win\dx</Filter>
+    </ClCompile>
+    <ClCompile Include="desktop\win\dx\DxgiDuplicatorController.cpp">
+      <Filter>desktop\win\dx</Filter>
+    </ClCompile>
+    <ClCompile Include="desktop\win\dx\DxgiFrame.cpp">
+      <Filter>desktop\win\dx</Filter>
+    </ClCompile>
+    <ClCompile Include="desktop\win\dx\DxgiOutputDuplicator.cpp">
+      <Filter>desktop\win\dx</Filter>
+    </ClCompile>
+    <ClCompile Include="desktop\win\dx\DxgiTexture.cpp">
+      <Filter>desktop\win\dx</Filter>
+    </ClCompile>
+    <ClCompile Include="desktop\win\dx\DxgiTextureMapping.cpp">
+      <Filter>desktop\win\dx</Filter>
+    </ClCompile>
+    <ClCompile Include="desktop\win\dx\DxgiTextureStaging.cpp">
+      <Filter>desktop\win\dx</Filter>
+    </ClCompile>
+    <ClCompile Include="desktop\win\dx\ScreenCapturerDxgi.cpp">
+      <Filter>desktop\win\dx</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

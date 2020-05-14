@@ -29,7 +29,7 @@ namespace mrCommonLib
 				// top-left.
 				// If the screen device key does not match |device_key|, or the screen does not exist, or any
 				// error happens, an empty rect is returned.
-				static CRect ScreenRect(ScreenId screen, const std::wstring& device_key);
+				static CRect ScreenRect(ScreenId screen, const wstr& device_key);
 
 				// The number of visible display monitors on a desktop.
 				static int ScreenCount();

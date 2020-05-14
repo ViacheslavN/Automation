@@ -39,7 +39,7 @@ namespace mrCommonLib
 
 				CRect m_desktop_dc_rect;
 				CPixelFormat m_PixelFormat;
-				CFrameQueue m_queue;
+				CFrameQueue<IFramePtr> m_queue;
 				std::unique_ptr<CDiffer> m_differ;
 			};
 		}
