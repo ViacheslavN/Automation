@@ -12,9 +12,9 @@ namespace mrCommonLib
 			CDiffer(const CSize& size, const CPixelFormat& format);
 			~CDiffer() = default;
 
-			void calcDirtyRegion(const uint8_t* prev_image,
+			void CalcDirtyRegion(const uint8_t* prev_image,
 				const uint8_t* curr_image,
-				CRegionPtr changed_region);
+				CRegion* changed_region);
 
 		private:
 			typedef uint8_t(*DiffFullBlockFunc)(const uint8_t*, const uint8_t*, int);
@@ -22,8 +22,8 @@ namespace mrCommonLib
 			static DiffFullBlockFunc diffFunctionFor32bpp();
 			static DiffFullBlockFunc diffFunctionFor16bpp();
 
-			void markDirtyBlocks(const uint8_t* prev_image, const uint8_t* curr_image);
-			void mergeBlocks(CRegionPtr dirty_region);
+			void MarkDirtyBlocks(const uint8_t* prev_image, const uint8_t* curr_image);
+			void MergeBlocks(CRegion* dirty_region);
 
 			const CRect screen_rect_;
 

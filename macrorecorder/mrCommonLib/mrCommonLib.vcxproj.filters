@@ -31,6 +31,12 @@
     <Filter Include="video">
       <UniqueIdentifier>{89420d55-acff-411b-9e43-33f0a469c2da}</UniqueIdentifier>
     </Filter>
+    <Filter Include="video\ffmpeg">
+      <UniqueIdentifier>{8e8c65e6-f1f8-42d1-92f8-6a0ee9cea274}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="video\vpx">
+      <UniqueIdentifier>{c5593deb-a0c4-4bdf-8a9d-161648e05ced}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -156,6 +162,51 @@
     <ClInclude Include="desktop\win\dx\ScreenCapturerDxgi.h">
       <Filter>desktop\win\dx</Filter>
     </ClInclude>
+    <ClInclude Include="VideoDecoder.h">
+      <Filter>video</Filter>
+    </ClInclude>
+    <ClInclude Include="video\ffmpeg\FFmpegException.h">
+      <Filter>video\ffmpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="video\ffmpeg\FFmpeg.h">
+      <Filter>video\ffmpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="video\ffmpeg\FFmpegLib.h">
+      <Filter>video\ffmpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="video\ffmpeg\Encoder.h">
+      <Filter>video\ffmpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="video\ffmpeg\BaseCodec.h">
+      <Filter>video\ffmpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="video\ffmpeg\ffmpegUtils.h">
+      <Filter>video\ffmpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="video\ffmpeg\FFmpegVideoEncoder.h">
+      <Filter>video\ffmpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="video\PixelTranslator.h">
+      <Filter>video</Filter>
+    </ClInclude>
+    <ClInclude Include="video\vpx\VideoEncoderVpx.h">
+      <Filter>video\vpx</Filter>
+    </ClInclude>
+    <ClInclude Include="video\vpx\VPXException.h">
+      <Filter>video\vpx</Filter>
+    </ClInclude>
+    <ClInclude Include="video\vpx\vpx.h">
+      <Filter>video\vpx</Filter>
+    </ClInclude>
+    <ClInclude Include="video\vpx\vpx_codec.h">
+      <Filter>video\vpx</Filter>
+    </ClInclude>
+    <ClInclude Include="video\VideoUtil.h">
+      <Filter>video</Filter>
+    </ClInclude>
+    <ClInclude Include="video\BaseVideoEncoder.h">
+      <Filter>video</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mrCommonLib.cpp">
@@ -259,6 +310,42 @@
     </ClCompile>
     <ClCompile Include="desktop\win\dx\ScreenCapturerDxgi.cpp">
       <Filter>desktop\win\dx</Filter>
+    </ClCompile>
+    <ClCompile Include="video\ffmpeg\FFmpegException.cpp">
+      <Filter>video\ffmpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="video\ffmpeg\Encoder.cpp">
+      <Filter>video\ffmpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="video\ffmpeg\BaseCodec.cpp">
+      <Filter>video\ffmpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="video\ffmpeg\ffmpegUtils.cpp">
+      <Filter>video\ffmpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="video\ffmpeg\FFmpegVideoEncoder.cpp">
+      <Filter>video\ffmpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="video\VideoEncoder.cpp">
+      <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="video\PixelTranslator.cpp">
+      <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="video\vpx\VideoEncoderVpx.cpp">
+      <Filter>video\vpx</Filter>
+    </ClCompile>
+    <ClCompile Include="video\vpx\VPXException.cpp">
+      <Filter>video\vpx</Filter>
+    </ClCompile>
+    <ClCompile Include="video\vpx\vpx_codec.cpp">
+      <Filter>video\vpx</Filter>
+    </ClCompile>
+    <ClCompile Include="video\VideoUtil.cpp">
+      <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="video\BaseVideoEncoder.cpp">
+      <Filter>video</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

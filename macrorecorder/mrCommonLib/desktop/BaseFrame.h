@@ -16,7 +16,6 @@ namespace mrCommonLib
 			IBaseFrame(const CPixelFormat& format, const CSize& size) : m_format(format), m_size(size)
 			{
 				m_stride = 4 * ((m_size.Width() * m_format.BitsPerPixel()  + 31) / 32);
-				m_updated_region.reset(new CRegion());
 			}
 
 			virtual ~IBaseFrame()
@@ -90,7 +89,12 @@ namespace mrCommonLib
 			}
 
 
-			virtual CRegionPtr UpdatedRegion()
+			virtual CRegion& UpdatedRegion()
+			{
+				return m_updated_region;
+			}
+
+			virtual const CRegion& UpdatedRegionConst() const
 			{
 				return m_updated_region;
 			}
@@ -100,7 +104,7 @@ namespace mrCommonLib
 			CPixelFormat m_format;
 			CSize m_size;
 			uint32_t m_stride;
-			CRegionPtr m_updated_region;
+			CRegion m_updated_region;
 		};
 	}
 }

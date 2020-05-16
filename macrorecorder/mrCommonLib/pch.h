@@ -18,6 +18,7 @@
 #include "../../../CommonLib/str/StringEncoding.h"
 #include "../../../CommonLib/log/logger.h"
 #include "../../../CommonLib/log/LogInfo.h"
+#include "../../../CommonLib/stream/stream.h"
 
 #ifdef _WIN32
 

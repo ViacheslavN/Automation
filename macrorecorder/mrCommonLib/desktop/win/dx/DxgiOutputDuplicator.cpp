@@ -201,23 +201,23 @@ namespace mrCommonLib
 
 					if (m_rotation != Rotation::CLOCK_WISE_0)
 					{
-						for (CRegion::Iterator it(updated_region); !it.isAtEnd(); it.advance())
+						for (CRegion::Iterator it(updated_region); !it.IsAtEnd(); it.Advance())
 						{
 							// The |updated_region| returned by Windows is rotated, but the |source|
 							// frame is not. So we need to rotate it reversely.
 							const CRect source_rect =
-								rotateRect(it.rect(), DesktopSize(), reverseRotation(m_rotation));
+								rotateRect(it.Rect(), DesktopSize(), reverseRotation(m_rotation));
 							rotateDesktopFrame(source, source_rect, m_rotation, offset, target);
 						}
 					}
 					else
 					{
-						for (CRegion::Iterator it(updated_region); !it.isAtEnd(); it.advance())
+						for (CRegion::Iterator it(updated_region); !it.IsAtEnd(); it.Advance())
 						{
 							// The Rect in |target|, starts from offset.
-							CRect dest_rect = it.rect();
+							CRect dest_rect = it.Rect();
 							dest_rect.Translate(offset);
-							target->CopyPixelsFrom(source, it.rect().TopLeft(), dest_rect);
+							target->CopyPixelsFrom(source, it.Rect().TopLeft(), dest_rect);
 						}
 					}
 
@@ -225,7 +225,7 @@ namespace mrCommonLib
 					m_lastFrameOffset = offset;
 
 					updated_region.Translate(offset.X(), offset.Y());
-					target->UpdatedRegion()->AddRegion(updated_region);
+					target->UpdatedRegion().AddRegion(updated_region);
 					++m_numFramesCaptured;
 
 					return m_texture->Release() && ReleaseFrame();
@@ -235,10 +235,10 @@ namespace mrCommonLib
 				{
 					// No change since last frame or AcquireNextFrame() timed out, we will export last frame to
 					// the target.
-					for (CRegion::Iterator it(updated_region); !it.isAtEnd(); it.advance())
+					for (CRegion::Iterator it(updated_region); !it.IsAtEnd(); it.Advance())
 					{
 						// The Rect in |source|, starts from last_frame_offset_.
-						CRect source_rect = it.rect();
+						CRect source_rect = it.Rect();
 
 						// The Rect in |target|, starts from offset.
 						CRect target_rect = source_rect;
@@ -250,7 +250,7 @@ namespace mrCommonLib
 					}
 
 					updated_region.Translate(offset.X(), offset.Y());
-					target->UpdatedRegion()->AddRegion(updated_region);
+					target->UpdatedRegion().AddRegion(updated_region);
 				}
 				else
 				{

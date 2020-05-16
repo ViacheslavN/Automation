@@ -150,7 +150,7 @@ namespace mrCommonLib
 				//	return Result::FRAME_PREPARE_FAILED;
 				frame->Prepare(SelectedDesktopSize(monitor_id), monitor_id);
 
-				frame->Frame()->UpdatedRegion()->Clear();
+				frame->Frame()->UpdatedRegion().Clear();
 
 				Setup(frame->GetContext());
 

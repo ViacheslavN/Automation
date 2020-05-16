@@ -62,13 +62,13 @@ namespace mrCommonLib
 					if (!previous || previous->Size() != current->Size())
 					{
 						m_differ = std::make_unique<CDiffer>(screen_rect.Size(), m_PixelFormat);
-						current->UpdatedRegion()->AddRect(CRect::MakeSize(screen_rect.Size()));
+						current->UpdatedRegion().AddRect(CRect::MakeSize(screen_rect.Size()));
 					}
 					else
 					{
-						m_differ->calcDirtyRegion(previous->Data(),
+						m_differ->CalcDirtyRegion(previous->Data(),
 							current->Data(),
-							current->UpdatedRegion());
+							&current->UpdatedRegion());
 					}
 
 					return current;

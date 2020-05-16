@@ -29,7 +29,8 @@ namespace mrCommonLib
 			virtual void CopyPixelsFrom(IFramePtr src_frame, const CPoint& src_pos, const CRect& dest_rect) = 0;
 			virtual void CopyFrameInfoFrom(IFramePtr other) = 0;
 
-			virtual CRegionPtr UpdatedRegion() = 0;
+			virtual CRegion& UpdatedRegion() = 0;
+			virtual const CRegion& UpdatedRegionConst() const= 0;
 			//virtual IFramePtr Clone() = 0;
 		};
 

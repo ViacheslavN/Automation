@@ -12,10 +12,16 @@ int main()
 
 	try
 	{
-		mrCommonLib::desktop::win::CScreenCapturerGdi gdiCapture;
+		//mrCommonLib::desktop::win::CScreenCapturerGdi gdiCapture;
+		CommonLib::CWriteMemoryStream writeStream;
 
+		mrCommonLib::desktop::win::CScreenCapturerDxgi dxCapture;
+		mrCommonLib::desktop::IFramePtr pFrame = dxCapture.CaptureFrame();
 
-		for (int i = 0; i < 10; ++i)
+		mrCommonLib::video::IVideoEncoderPtr vedeoEncode = mrCommonLib::video::CreateVideoEncoder(mrCommonLib::video::VIDEO_ENCODING_VP9);
+		vedeoEncode->Encode(pFrame.get(), &writeStream);
+
+		/*for (int i = 0; i < 10; ++i)
 		{
 			mrCommonLib::desktop::IFramePtr pFrame = gdiCapture.CaptureFrame();
 			mrCommonLib::desktop::SaveFrameToFile(pFrame, CommonLib::str_format::AStrFormatSafeT("gdiFrame%1.bmp", i));
@@ -27,11 +33,11 @@ int main()
 		{
 			mrCommonLib::desktop::IFramePtr pFrame = dxCapture.CaptureFrame();
 			mrCommonLib::desktop::SaveFrameToFile(pFrame, CommonLib::str_format::AStrFormatSafeT("dxFrame%1.bmp", i));
-		}
+		}*/
 	}
 	catch (std::exception& exe)
 	{
-		std::cout << "TestBPTreeSet failed: " << "\n";
+		std::cout << "Failed: " << "\n";
 
 		astrvec msgChain = CommonLib::CExcBase::GetChainFromExc(exe);
 

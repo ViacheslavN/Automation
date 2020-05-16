@@ -174,12 +174,12 @@ namespace mrCommonLib
 			// Nothing
 		}
 
-		bool CRegion::Iterator::isAtEnd() const
+		bool CRegion::Iterator::IsAtEnd() const
 		{
 			return m_pos >= m_count;
 		}
 
-		void CRegion::Iterator::advance()
+		void CRegion::Iterator::Advance()
 		{
 			++m_pos;
 		}

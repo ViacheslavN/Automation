@@ -136,7 +136,7 @@ namespace mrCommonLib
 		}
 
 		// Identify all of the blocks that contain changed pixels.
-		void CDiffer::markDirtyBlocks(const uint8_t* prev_image, const uint8_t* curr_image)
+		void CDiffer::MarkDirtyBlocks(const uint8_t* prev_image, const uint8_t* curr_image)
 		{
 			const uint8_t* prev_block_row_start = prev_image;
 			const uint8_t* curr_block_row_start = curr_image;
@@ -223,7 +223,7 @@ namespace mrCommonLib
 		// blocks into a region.
 		// The goal is to minimize the region that covers the dirty blocks.
 		//
-		void CDiffer::mergeBlocks(CRegionPtr dirty_region)
+		void CDiffer::MergeBlocks(CRegion* dirty_region)
 		{
 			uint8_t* is_diff_row_start = diff_info_.get();
 			const int diff_stride = diff_width_;
@@ -307,20 +307,20 @@ namespace mrCommonLib
 			}
 		}
 
-		void CDiffer::calcDirtyRegion(const uint8_t* prev_image,
+		void CDiffer::CalcDirtyRegion(const uint8_t* prev_image,
 			const uint8_t* curr_image,
-			CRegionPtr dirty_region)
+			CRegion* dirty_region)
 		{
 			dirty_region->Clear();
 
 			// Identify all the blocks that contain changed pixels.
-			markDirtyBlocks(prev_image, curr_image);
+			MarkDirtyBlocks(prev_image, curr_image);
 
 			//
 			// Now that we've identified the blocks that have changed, merge adjacent
 			// blocks to minimize the number of rects that we return.
 			//
-			mergeBlocks(dirty_region);
+			MergeBlocks(dirty_region);
 		}
 
 	}

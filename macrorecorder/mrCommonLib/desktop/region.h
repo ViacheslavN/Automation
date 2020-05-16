@@ -27,10 +27,10 @@ namespace mrCommonLib
 				explicit Iterator(const CRegion& target);
 				~Iterator() = default;
 
-				bool isAtEnd() const;
-				void advance();
+				bool IsAtEnd() const;
+				void Advance();
 
-				CRect rect() const
+				CRect Rect() const
 				{
 					const BoxRec& current = m_rects[m_pos];
 					return CRect::MakeLTRB(current.x1, current.y1, current.x2, current.y2);

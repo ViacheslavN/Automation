@@ -29,7 +29,6 @@ namespace mrCommonLib
 			CFrameDib::CFrameDib(HBitmapPtr bitmap) : IBaseFrame(bitmap->GetPixelFormat(), bitmap->GetSize())
 			{
 				m_bitmap = bitmap;
-				m_updated_region.reset(new CRegion());
 			}
 
 			byte_t* CFrameDib::Data() const
