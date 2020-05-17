@@ -379,7 +379,6 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="mrCommonLib_lib.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="VideoDecoder.h" />
     <ClInclude Include="video\BaseVideoEncoder.h" />
     <ClInclude Include="video\ffmpeg\BaseCodec.h" />
     <ClInclude Include="video\ffmpeg\Encoder.h" />
@@ -389,8 +388,12 @@
     <ClInclude Include="video\ffmpeg\ffmpegUtils.h" />
     <ClInclude Include="video\ffmpeg\FFmpegVideoEncoder.h" />
     <ClInclude Include="video\PixelTranslator.h" />
+    <ClInclude Include="video\VideoDecoder.h" />
     <ClInclude Include="video\VideoEncoder.h" />
+    <ClInclude Include="video\VideoEncodingIds.h" />
+    <ClInclude Include="video\VideoPackage.h" />
     <ClInclude Include="video\VideoUtil.h" />
+    <ClInclude Include="video\vpx\VideoDecoderVpx.h" />
     <ClInclude Include="video\vpx\VideoEncoderVpx.h" />
     <ClInclude Include="video\vpx\vpx.h" />
     <ClInclude Include="video\vpx\VPXException.h" />
@@ -455,8 +458,11 @@
     <ClCompile Include="video\ffmpeg\ffmpegUtils.cpp" />
     <ClCompile Include="video\ffmpeg\FFmpegVideoEncoder.cpp" />
     <ClCompile Include="video\PixelTranslator.cpp" />
+    <ClCompile Include="video\VideoDecoder.cpp" />
     <ClCompile Include="video\VideoEncoder.cpp" />
+    <ClCompile Include="video\VideoPackage.cpp" />
     <ClCompile Include="video\VideoUtil.cpp" />
+    <ClCompile Include="video\vpx\VideoDecoderVpx.cpp" />
     <ClCompile Include="video\vpx\vpx_codec.cpp" />
     <ClCompile Include="video\vpx\VideoEncoderVpx.cpp" />
     <ClCompile Include="video\vpx\VPXException.cpp" />

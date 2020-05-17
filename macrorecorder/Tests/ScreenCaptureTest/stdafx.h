@@ -10,14 +10,19 @@
 #include "../../../../CommonLib/log/logger.h"
 #include "../../../../CommonLib/log/ConsoleLogWriter.h"
 #include "../../../../CommonLib/stream/MemoryStream.h"
+ 
 
 #include "../../../../CommonLib/CommonLib_lib.h"
 #include "../../mrCommonLib/mrCommonLib_lib.h"
 
 #include "../../mrCommonLib/desktop/win/ScreenCapturerGdi.h"
 #include "../../mrCommonLib/desktop/win/dx/ScreenCapturerDxgi.h"
+#include "../../mrCommonLib/desktop/DataFrame.h"
+
+
 
 #include "../../mrCommonLib/video/VideoEncoder.h"
+#include "../../mrCommonLib/video/VideoDecoder.h"
 
 #pragma comment(lib, "DXGI.lib")
 #pragma comment(lib, "D3D11.lib")

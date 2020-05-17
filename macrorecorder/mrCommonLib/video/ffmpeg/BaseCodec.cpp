@@ -55,6 +55,11 @@ namespace mrCommonLib
 
 			AVCodecContext* CBaseCodec::GetContext()
 			{
+				return m_codecContext;
+			}
+
+			AVCodecContext* CBaseCodec::GetContextExc()
+			{
 				if (m_codecContext == nullptr)
 					throw CommonLib::CExcBase("CodecContext is null");
 
@@ -76,26 +81,26 @@ namespace mrCommonLib
 
 			void CBaseCodec::SetOption(const char* name, const char* value)
 			{
-				int ret = av_opt_set(GetContext()->priv_data, name, value, 0);
+				int ret = av_opt_set(GetContextExc()->priv_data, name, value, 0);
 				CFFmpegUtil::CheckAndThrowException(ret);
 
 			}
 
 			void CBaseCodec::SetOption(const char* name, int value)
 			{
-				int ret = av_opt_set_int(GetContext()->priv_data, name, value, 0);
+				int ret = av_opt_set_int(GetContextExc()->priv_data, name, value, 0);
 				CFFmpegUtil::CheckAndThrowException(ret);
 			}
 
 			void CBaseCodec::SetOption(const char* name, double value)
 			{
-				int ret = av_opt_set_double(GetContext()->priv_data, name, value, 0);
+				int ret = av_opt_set_double(GetContextExc()->priv_data, name, value, 0);
 				CFFmpegUtil::CheckAndThrowException(ret);
 			}
 
 			void CBaseCodec::SetGenericOption(const char* name, const char* value)
 			{
-				int ret = av_opt_set(GetContext(), name, value, 0);
+				int ret = av_opt_set(GetContextExc(), name, value, 0);
 				CFFmpegUtil::CheckAndThrowException(ret);
 			}
 

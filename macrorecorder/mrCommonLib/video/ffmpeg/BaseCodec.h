@@ -17,9 +17,11 @@ namespace mrCommonLib
 				void SetOption(const char* name, double value);
 				void SetGenericOption(const char* name, const char* value);
 
+				AVCodecContext* GetContext();
+
 			protected:
 				AVCodecContext* AllocContext(AVCodec* codec);
-				AVCodecContext* GetContext();
+				AVCodecContext* GetContextExc();
 				void Clean();
 			protected:
 				AVCodecContext* m_codecContext = nullptr;

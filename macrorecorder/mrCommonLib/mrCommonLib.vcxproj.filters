@@ -162,9 +162,6 @@
     <ClInclude Include="desktop\win\dx\ScreenCapturerDxgi.h">
       <Filter>desktop\win\dx</Filter>
     </ClInclude>
-    <ClInclude Include="VideoDecoder.h">
-      <Filter>video</Filter>
-    </ClInclude>
     <ClInclude Include="video\ffmpeg\FFmpegException.h">
       <Filter>video\ffmpeg</Filter>
     </ClInclude>
@@ -205,6 +202,18 @@
       <Filter>video</Filter>
     </ClInclude>
     <ClInclude Include="video\BaseVideoEncoder.h">
+      <Filter>video</Filter>
+    </ClInclude>
+    <ClInclude Include="video\vpx\VideoDecoderVpx.h">
+      <Filter>video\vpx</Filter>
+    </ClInclude>
+    <ClInclude Include="video\VideoEncodingIds.h">
+      <Filter>video</Filter>
+    </ClInclude>
+    <ClInclude Include="video\VideoPackage.h">
+      <Filter>video</Filter>
+    </ClInclude>
+    <ClInclude Include="video\VideoDecoder.h">
       <Filter>video</Filter>
     </ClInclude>
   </ItemGroup>
@@ -345,6 +354,15 @@
       <Filter>video</Filter>
     </ClCompile>
     <ClCompile Include="video\BaseVideoEncoder.cpp">
+      <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="video\vpx\VideoDecoderVpx.cpp">
+      <Filter>video\vpx</Filter>
+    </ClCompile>
+    <ClCompile Include="video\VideoDecoder.cpp">
+      <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="video\VideoPackage.cpp">
       <Filter>video</Filter>
     </ClCompile>
   </ItemGroup>

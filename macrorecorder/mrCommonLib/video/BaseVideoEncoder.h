@@ -13,9 +13,7 @@ namespace mrCommonLib
 			virtual ~IBaseVideoEncoder() {}
 		protected:
 
-			void FillPacketInfo(EVideoEncoderId encodingID,
-				const desktop::IFrame* frame,
-				CommonLib::IWriteStream *pStream);
+			void FillPacketInfo(EVideoEncoderId encodingID,	const desktop::IFrame* frame, CVideoPackage *pVideoPackage);
 
 
 			desktop::CSize m_lastSize;

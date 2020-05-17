@@ -9,18 +9,18 @@ namespace mrCommonLib
 	{
 		namespace ffmpeglib
 		{
-			class CFFmpegVideoEncoder : public  CBaseCodec,
-												IVideoEncoder
+			class CFFmpegVideoEncoder : IVideoEncoder
 			{
 			public:
 				CFFmpegVideoEncoder(const char* codecName);
 				CFFmpegVideoEncoder(AVCodecID codecId);
 				virtual ~CFFmpegVideoEncoder();
 
-				virtual void Encode(desktop::IFrame* pFrame, CommonLib::IWriteStream* pStream);
+				virtual void Encode(desktop::IFrame* pFrame, CVideoPackage *pVideoPackage);
 
 			private:
 				AVFormatContext m_formatContext;
+				CBaseCodec m_codec;
 			};
 		}
 	}

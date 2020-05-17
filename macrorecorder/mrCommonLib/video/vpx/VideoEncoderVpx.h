@@ -17,7 +17,7 @@ namespace mrCommonLib
 
 				static IVideoEncoderPtr createVP8();
 				static IVideoEncoderPtr createVP9();
-				virtual void Encode(desktop::IFrame* pFrame, CommonLib::IWriteStream* pStream);
+				virtual void Encode(desktop::IFrame* pFrame, CVideoPackage *pVideoPackage);
 
 			private:
 				explicit CVideoEncoderVPX(EVideoEncoderId encodingId);
@@ -25,20 +25,20 @@ namespace mrCommonLib
 				void createActiveMap(const desktop::CSize& size);
 				void createVp8Codec(const desktop::CSize& size);
 				void createVp9Codec(const desktop::CSize& size);
-				void prepareImageAndActiveMap(const desktop::IFrame* frame, CommonLib::IWriteStream* pStream);
+				void prepareImageAndActiveMap(const desktop::IFrame* frame, CVideoPackage *pVideoPackage);
 				void setActiveMap(const desktop::CRect& rect);
 
 				EVideoEncoderId m_encodingId;
 
-				desktop::CRegion updated_region_;
+				desktop::CRegion m_updatedRegion;
 				VpxCodecPtr m_codec;
 
-				std::vector<uint8_t> active_map_buffer_;
-				vpx_active_map_t active_map_;
+				std::vector<uint8_t> m_activeMapBuffer;;
+				vpx_active_map_t m_activeMap;
 
 				// VPX image and buffer to hold the actual YUV planes.
-				std::unique_ptr<vpx_image_t> image_;
-				std::vector<uint8_t> image_buffer_;
+				std::unique_ptr<vpx_image_t> m_image;
+				std::vector<uint8_t> m_imageBuffer;
 
 			};
 		}

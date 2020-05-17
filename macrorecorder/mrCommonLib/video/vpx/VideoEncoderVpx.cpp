@@ -135,12 +135,12 @@ namespace mrCommonLib
 
 			void CVideoEncoderVPX::createActiveMap(const desktop::CSize& size)
 			{
-				active_map_.cols = (size.Width() + kMacroBlockSize - 1) / kMacroBlockSize;
-				active_map_.rows = (size.Height() + kMacroBlockSize - 1) / kMacroBlockSize;
+				m_activeMap.cols = (size.Width() + kMacroBlockSize - 1) / kMacroBlockSize;
+				m_activeMap.rows = (size.Height() + kMacroBlockSize - 1) / kMacroBlockSize;
 
-				active_map_buffer_.resize(active_map_.cols * active_map_.rows);
-				memset(active_map_buffer_.data(), 0, active_map_buffer_.size());
-				active_map_.active_map = active_map_buffer_.data();
+				m_activeMapBuffer.resize(m_activeMap.cols * m_activeMap.rows);
+				memset(m_activeMapBuffer.data(), 0, m_activeMapBuffer.size());
+				m_activeMap.active_map = m_activeMapBuffer.data();
 			}
 
 			void CVideoEncoderVPX::createVp8Codec(const desktop::CSize& size)
@@ -175,22 +175,22 @@ namespace mrCommonLib
 
 					ret = vpx_codec_enc_init(m_codec.get(), algo, &config, 0);
 					if (ret != VPX_CODEC_OK)
-						throw CVPXException(ret);
+						throw CVPXException(ret, "failed enc init ");
 
 					// Value of 16 will have the smallest CPU load. This turns off subpixel motion search.
 					ret = vpx_codec_control(m_codec.get(), VP8E_SET_CPUUSED, 16);
 					if (ret != VPX_CODEC_OK)
-						throw CVPXException(ret);
+						Log.Warning("Failed vpx codec control  VP8E_SET_CPUUSED %1", CVPXException::GetVPXLibErrorDesc(ret));
 
 					ret = vpx_codec_control(m_codec.get(), VP8E_SET_SCREEN_CONTENT_MODE, 1);
 					if (ret != VPX_CODEC_OK)
-						throw CVPXException(ret);
+						Log.Warning("Failed vpx codec control VP8E_SET_SCREEN_CONTENT_MODE %1", CVPXException::GetVPXLibErrorDesc(ret));
 
 					// Use the lowest level of noise sensitivity so as to spend less time on motion estimation and
 					// inter-prediction mode.
 					ret = vpx_codec_control(m_codec.get(), VP8E_SET_NOISE_SENSITIVITY, 0);
 					if (ret != VPX_CODEC_OK)
-						throw CVPXException(ret);
+						Log.Warning("Failed vpx codec control VP8E_SET_NOISE_SENSITIVITY %1", CVPXException::GetVPXLibErrorDesc(ret));
 				}
 				catch (std::exception& excSrc)
 				{
@@ -228,28 +228,28 @@ namespace mrCommonLib
 
 					ret = vpx_codec_enc_init(m_codec.get(), algo, &config, 0);
 					if (ret != VPX_CODEC_OK)
-						throw CVPXException(ret);
+						throw CVPXException(ret, "failed enc init");
 
 					// Request the lowest-CPU usage that VP9 supports, which depends on whether we are encoding
 					// lossy or lossless.
 					ret = vpx_codec_control(m_codec.get(), VP8E_SET_CPUUSED, 6);
 					if (ret != VPX_CODEC_OK)
-						throw CVPXException(ret);
+						Log.Warning("Failed vpx codec control  VP8E_SET_CPUUSED %1", CVPXException::GetVPXLibErrorDesc(ret));
 
 					ret = vpx_codec_control(m_codec.get(), VP9E_SET_TUNE_CONTENT, VP9E_CONTENT_SCREEN);
 					if (ret != VPX_CODEC_OK)
-						throw CVPXException(ret);
+						Log.Warning("Failed vpx codec control  VP9E_SET_TUNE_CONTENT %1", CVPXException::GetVPXLibErrorDesc(ret));
 
 					// Use the lowest level of noise sensitivity so as to spend less time on motion estimation and
 					// inter-prediction mode.
 					ret = vpx_codec_control(m_codec.get(), VP8E_SET_NOISE_SENSITIVITY, 0);
-					//if (ret != VPX_CODEC_OK)
-					//	throw CVPXException(ret);
+					if (ret != VPX_CODEC_OK)
+						Log.Warning("Failed vpx codec control  VP8E_SET_NOISE_SENSITIVITY %1", CVPXException::GetVPXLibErrorDesc(ret));
 
 					// Set cyclic refresh (aka "top-off") only for lossy encoding.
 					ret = vpx_codec_control(m_codec.get(), VP9E_SET_AQ_MODE, kVp9AqModeCyclicRefresh);
 					if (ret != VPX_CODEC_OK)
-						throw CVPXException(ret);
+						Log.Warning("Failed vpx codec control  VP9E_SET_AQ_MODE %1", CVPXException::GetVPXLibErrorDesc(ret));
 				}
 				catch (std::exception& excSrc)
 				{
@@ -265,7 +265,7 @@ namespace mrCommonLib
 				int right = (rect.Right() - 1) / kMacroBlockSize;
 				int bottom = (rect.Bottom() - 1) / kMacroBlockSize;
 
-				uint8_t* map = active_map_.active_map + top * active_map_.cols;
+				uint8_t* map = m_activeMap.active_map + top * m_activeMap.cols;
 
 				for (int y = top; y <= bottom; ++y)
 				{
@@ -274,12 +274,12 @@ namespace mrCommonLib
 						map[x] = 1;
 					}
 
-					map += active_map_.cols;
+					map += m_activeMap.cols;
 				}
 			}
 
 			void CVideoEncoderVPX::prepareImageAndActiveMap(
-				const desktop::IFrame* frame, CommonLib::IWriteStream* pStream)
+				const desktop::IFrame* frame, CVideoPackage *pVideoPackage)
 			{
 				const int padding = ((m_encodingId == VIDEO_ENCODING_VP9) ? 8 : 3);
 
@@ -293,7 +293,7 @@ namespace mrCommonLib
 					// must be listed in the active map. After padding we align each rectangle to 16x16
 					// active-map macroblocks. This implicitly ensures all rects have even top-left coords,
 					// which is is required by ARGBToI420().
-					updated_region_.AddRect(
+					m_updatedRegion.AddRect(
 						AlignRect(desktop::CRect::MakeLTRB(rect.Left() - padding, rect.Top() - padding,
 							rect.Right() + padding, rect.Bottom() + padding)));
 				}
@@ -301,22 +301,22 @@ namespace mrCommonLib
 				// Clip back to the screen dimensions, in case they're not macroblock aligned. The conversion
 				// routines don't require even width & height, so this is safe even if the source dimensions
 				// are not even.
-				updated_region_.IntersectWith(desktop::CRect::MakeWH(image_->w, image_->h));
+				m_updatedRegion.IntersectWith(desktop::CRect::MakeWH(m_image->w, m_image->h));
 
-				memset(active_map_buffer_.data(), 0, active_map_buffer_.size());
+				memset(m_activeMapBuffer.data(), 0, m_activeMapBuffer.size());
 
-				const int y_stride = image_->stride[0];
-				const int uv_stride = image_->stride[1];
-				uint8_t* y_data = image_->planes[0];
-				uint8_t* u_data = image_->planes[1];
-				uint8_t* v_data = image_->planes[2];
+				const int y_stride = m_image->stride[0];
+				const int uv_stride = m_image->stride[1];
+				uint8_t* y_data = m_image->planes[0];
+				uint8_t* u_data = m_image->planes[1];
+				uint8_t* v_data = m_image->planes[2];
 
 				auto convert_to_i420 = libyuv::ARGBToI420;
 
 				if (frame->Format().BitsPerPixel() == 16)
 					convert_to_i420 = libyuv::RGB565ToI420;
 
-				for (desktop::CRegion::Iterator it(updated_region_); !it.IsAtEnd(); it.Advance())
+				for (desktop::CRegion::Iterator it(m_updatedRegion); !it.IsAtEnd(); it.Advance())
 				{
 					const desktop::CRect& rect = it.Rect();
 
@@ -331,20 +331,20 @@ namespace mrCommonLib
 						rect.Width(),
 						rect.Height());
 
-					CVideoUtil::WriteRect(rect, pStream);
+					pVideoPackage->AddDirtyRect(rect);
 					setActiveMap(rect);
 				}
 			}
 
-			void CVideoEncoderVPX::Encode(desktop::IFrame* pFrame, CommonLib::IWriteStream* pStream)
+			void CVideoEncoderVPX::Encode(desktop::IFrame* pFrame, CVideoPackage *pVideoPackage)
 			{
-				FillPacketInfo(m_encodingId, pFrame, pStream);
+				FillPacketInfo(m_encodingId, pFrame, pVideoPackage);
 
 				if (m_codec.get() == 0)
 				{
 					const desktop::CSize& screen_size = pFrame->Size();
 
-					CreateImage(screen_size, &image_, &image_buffer_);
+					CreateImage(screen_size, &m_image, &m_imageBuffer);
 					createActiveMap(screen_size);
 
 					if (m_encodingId == VIDEO_ENCODING_VP8)
@@ -356,23 +356,23 @@ namespace mrCommonLib
 						createVp9Codec(screen_size);
 					}
 
-					updated_region_ = desktop::CRegion(desktop::CRect::MakeSize(screen_size));
+					m_updatedRegion = desktop::CRegion(desktop::CRect::MakeSize(screen_size));
 				}
 				else
 				{
-					updated_region_.Clear();
+					m_updatedRegion.Clear();
 				}
 
 				// Convert the updated capture data ready for encode.
 				// Update active map based on updated region.
-				prepareImageAndActiveMap(pFrame, pStream);
+				prepareImageAndActiveMap(pFrame, pVideoPackage);
 
 				// Apply active map to the encoder.
-				vpx_codec_err_t ret = vpx_codec_control(m_codec.get(), VP8E_SET_ACTIVEMAP, &active_map_);
+				vpx_codec_err_t ret = vpx_codec_control(m_codec.get(), VP8E_SET_ACTIVEMAP, &m_activeMap);
 				//DCHECK_EQ(ret, VPX_CODEC_OK);
 
 				// Do the actual encoding.
-				ret = vpx_codec_encode(m_codec.get(), image_.get(), 0, 1, 0, VPX_DL_REALTIME);
+				ret = vpx_codec_encode(m_codec.get(), m_image.get(), 0, 1, 0, VPX_DL_REALTIME);
 				//DCHECK_EQ(ret, VPX_CODEC_OK);
 
 				// Read the encoded data.
@@ -386,7 +386,7 @@ namespace mrCommonLib
 
 					if (pkt->kind == VPX_CODEC_CX_FRAME_PKT)
 					{
-						pStream->Write((const byte_t*)pkt->data.frame.buf, pkt->data.frame.sz);
+						pVideoPackage->SetEncodeData((const byte_t*)pkt->data.frame.buf, pkt->data.frame.sz);
 						break;
 					}
 				}

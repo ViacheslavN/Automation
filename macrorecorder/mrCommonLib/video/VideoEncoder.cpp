@@ -9,13 +9,13 @@ namespace mrCommonLib
 	namespace video
 	{
 		//ffmpeg -codecs >codecs.txt
-		IVideoEncoderPtr CreateVideoEncoder(EVideoEncoderId id)
+		IVideoEncoderPtr IVideoEncoder::CreateVideoEncoder(EVideoEncoderId id)
 		{
 
 			switch (id)
 			{
-			case mrCommonLib::video::VIDEO_ENCODING_FFMPEG_MPEG4:
-				return IVideoEncoderPtr((IVideoEncoder*)new ffmpeglib::CFFmpegVideoEncoder(AV_CODEC_ID_H265));
+			case mrCommonLib::video::VIDEO_ENCODING_MPEG4:
+				return IVideoEncoderPtr((IVideoEncoder*)new ffmpeglib::CFFmpegVideoEncoder(AV_CODEC_ID_MPEG4));
 				break;
 			case mrCommonLib::video::VIDEO_ENCODING_VP8:
 				return vpxlib::CVideoEncoderVPX::createVP8();

@@ -9,12 +9,12 @@ namespace mrCommonLib
 	{
 		namespace ffmpeglib
 		{
-			CFFmpegVideoEncoder::CFFmpegVideoEncoder(const char* codecName) : CBaseCodec(codecName, true)
+			CFFmpegVideoEncoder::CFFmpegVideoEncoder(const char* codecName) : m_codec(codecName, true)
 			{
 
 			}
 
-			CFFmpegVideoEncoder::CFFmpegVideoEncoder(AVCodecID codecId) : CBaseCodec(codecId, true)
+			CFFmpegVideoEncoder::CFFmpegVideoEncoder(AVCodecID codecId) : m_codec(codecId, true)
 			{
 
 			}
@@ -24,7 +24,7 @@ namespace mrCommonLib
 
 			}
 
-			void CFFmpegVideoEncoder::Encode(desktop::IFrame* pFrame, CommonLib::IWriteStream* pStream)
+			void CFFmpegVideoEncoder::Encode(desktop::IFrame* pFrame, CVideoPackage *pVideoPackage)
 			{
 
 			}

@@ -1,5 +1,7 @@
 #pragma once
 #include "../desktop/Frame.h"
+#include "VideoEncodingIds.h"
+#include "VideoPackage.h"
 
 namespace mrCommonLib
 {
@@ -12,17 +14,12 @@ namespace mrCommonLib
 			IVideoEncoder() {}
 			virtual ~IVideoEncoder() {}
 
-			virtual void Encode(desktop::IFrame* pFrame, CommonLib::IWriteStream* pStream) = 0;
+			virtual void Encode(desktop::IFrame* pFrame, CVideoPackage *pVideoPackage) = 0;
+
+			static 	IVideoEncoderPtr CreateVideoEncoder(EVideoEncoderId id);
 		};
 
-		enum EVideoEncoderId
-		{
-			VIDEO_ENCODING_FFMPEG_MPEG4,
-			VIDEO_ENCODING_VP8,
-			VIDEO_ENCODING_VP9,
-			VIDEO_ENCODING_X265
-		};
-
-		IVideoEncoderPtr CreateVideoEncoder(EVideoEncoderId id);
+		
+	
 	}
 }

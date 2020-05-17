@@ -7,17 +7,17 @@ namespace mrCommonLib
 	namespace video
 	{
 
-		void IBaseVideoEncoder::FillPacketInfo(EVideoEncoderId encodingID, const desktop::IFrame* frame, CommonLib::IWriteStream *pStream)
+		void IBaseVideoEncoder::FillPacketInfo(EVideoEncoderId encodingID, const desktop::IFrame* frame, CVideoPackage *pVideoPackage)
 		{
-			pStream->Write((uint32_t)encodingID);
+			pVideoPackage->SetEncoderId(encodingID);
+			pVideoPackage->SetPixelFormat(frame->Format());
 
 			if (m_lastSize != frame->Size())
 			{
 				m_lastSize = frame->Size();
 			}
 
-			CVideoUtil::WriteRect(desktop::CRect::MakeSize(m_lastSize), pStream);
-
+			pVideoPackage->SetScreenRect(desktop::CRect::MakeSize(m_lastSize));
 		}
 
 	}
