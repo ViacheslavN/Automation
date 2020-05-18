@@ -12,32 +12,51 @@ int main()
 
 	try
 	{
-		//mrCommonLib::desktop::win::CScreenCapturerGdi gdiCapture;
-		CommonLib::CWriteMemoryStream writeStream;
-		CommonLib::CReadMemoryStream readStream;
+		mrCommonLib::video::EVideoEncoderId id = mrCommonLib::video::VIDEO_ENCODING_X265;
+		mrCommonLib::video::IVideoEncoderPtr videoEncoder = mrCommonLib::video::IVideoEncoder::CreateVideoEncoder(id);
+		mrCommonLib::video::IVideoDecoderPtr videoDecoder = mrCommonLib::video::IVideoDecoder::CreateVideoDecoder(id);
 
 		mrCommonLib::desktop::win::CScreenCapturerDxgi dxCapture;
-		mrCommonLib::desktop::IFramePtr pFrame = dxCapture.CaptureFrame();
+		mrCommonLib::desktop::IFramePtr pDecodeFrame;
+		for (int i = 0; i < 100; ++i)
+		{
+			CommonLib::CWriteMemoryStream writeStream;
+			CommonLib::CReadMemoryStream readStream;
+			mrCommonLib::video::CVideoPackage encodePackage, decodePackage;
+			mrCommonLib::desktop::IFramePtr pFrame = dxCapture.CaptureFrame();
 
-		mrCommonLib::video::CVideoPackage encodePackage, decodePackage;
+			videoEncoder->Encode(pFrame.get(), &encodePackage);
+			encodePackage.Save(&writeStream);
 
-		mrCommonLib::video::IVideoEncoderPtr videoEncoder = mrCommonLib::video::IVideoEncoder::CreateVideoEncoder(mrCommonLib::video::VIDEO_ENCODING_VP9);
-		videoEncoder->Encode(pFrame.get(), &encodePackage);
+			readStream.AttachBuffer(writeStream.Buffer(), writeStream.Pos());
+			decodePackage.Load(&readStream);
 
-		encodePackage.Save(&writeStream);
+			mrCommonLib::desktop::CRect rect = decodePackage.GetScreenRect();
 
-		readStream.AttachBuffer(writeStream.Buffer(), writeStream.Pos());
+	
+			if(pDecodeFrame.get() == nullptr)
+					pDecodeFrame.reset(new mrCommonLib::desktop::CDataFrame(decodePackage.GetPixelFormat(), mrCommonLib::desktop::CSize(rect.Width(), rect.Height())));
 
-		decodePackage.Load(&readStream);
+			bool bSkip = false;
+			videoDecoder->Decode(pDecodeFrame.get(), &decodePackage, bSkip);
+			if(!bSkip)
+				mrCommonLib::desktop::SaveFrameToFile(pDecodeFrame, CommonLib::str_format::AStrFormatSafeT("D:\\Frames\\DecodeFrame_%1.bmp", i));
+			 
+		}
 
-		mrCommonLib::video::IVideoDecoderPtr videoDecoder = mrCommonLib::video::IVideoDecoder::CreateVideoDecoder(mrCommonLib::video::VIDEO_ENCODING_VP9);
+		//mrCommonLib::desktop::win::CScreenCapturerGdi gdiCapture;
+	
 
-		mrCommonLib::desktop::CRect rect = decodePackage.GetScreenRect();
+		//mrCommonLib::desktop::IFramePtr pFrame = dxCapture.CaptureFrame();
 
-		mrCommonLib::desktop::IFramePtr pDecodeFrame(new mrCommonLib::desktop::CDataFrame(decodePackage.GetPixelFormat(), mrCommonLib::desktop::CSize(rect.Width(), rect.Height())));
+	
 
-		videoDecoder->Decode(pDecodeFrame.get(), &decodePackage);
-		mrCommonLib::desktop::SaveFrameToFile(pDecodeFrame, "DecodeFrame.bmp");
+	
+	
+
+	
+
+		
 
 		/*for (int i = 0; i < 10; ++i)
 		{

@@ -21,6 +21,7 @@ namespace mrCommonLib
 			try
 			{
 				Clear();
+				m_change = pStream->ReadBool();
 				m_codecId = (EVideoEncoderId)pStream->ReadIntu32();
 				m_format = CVideoUtil::ReadPixelFormat(pStream);
 				m_screenRect = CVideoUtil::ReadRect(pStream);
@@ -45,6 +46,7 @@ namespace mrCommonLib
 
 		void CVideoPackage::Save(CommonLib::IWriteStream *pStream)
 		{
+			pStream->Write(m_change);
 			pStream->Write(uint32_t(m_codecId));
 			CVideoUtil::WritePixelFormat(m_format, pStream);
 			CVideoUtil::WriteRect(m_screenRect, pStream);
@@ -64,6 +66,12 @@ namespace mrCommonLib
 			m_data.clear();
 			m_dirtyRects.clear();
 			m_codecId = VIDEO_ENCODING_NODE;
+			m_change = false;
+		}
+
+		void CVideoPackage::SetChange()
+		{
+			m_change = true;
 		}
 
 		void CVideoPackage::SetEncoderId(EVideoEncoderId codecId)
@@ -86,10 +94,12 @@ namespace mrCommonLib
 			m_format = format;
 		}
 
-		void CVideoPackage::SetEncodeData(const byte_t *pData, size_t nSize)
+		void CVideoPackage::AddEncodeData(const byte_t *pData, size_t nSize)
 		{
-			m_data.resize(nSize);
-			memcpy(m_data.data(), pData, nSize);
+
+			size_t currSize = m_data.size();
+			m_data.resize(currSize + nSize);
+			memcpy(m_data.data() + currSize, pData, nSize);
 		}
 
 		EVideoEncoderId CVideoPackage::GetEncoderId() const
@@ -125,6 +135,11 @@ namespace mrCommonLib
 		const byte_t *CVideoPackage::GetEncodeData() const
 		{
 			return m_data.data();
+		}
+
+		bool CVideoPackage::IsChange() const
+		{
+			return m_change;
 		}
 	}
 }

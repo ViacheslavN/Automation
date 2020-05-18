@@ -338,57 +338,65 @@ namespace mrCommonLib
 
 			void CVideoEncoderVPX::Encode(desktop::IFrame* pFrame, CVideoPackage *pVideoPackage)
 			{
-				FillPacketInfo(m_encodingId, pFrame, pVideoPackage);
-
-				if (m_codec.get() == 0)
+				try
 				{
-					const desktop::CSize& screen_size = pFrame->Size();
+					FillPacketInfo(m_encodingId, pFrame, pVideoPackage);
 
-					CreateImage(screen_size, &m_image, &m_imageBuffer);
-					createActiveMap(screen_size);
-
-					if (m_encodingId == VIDEO_ENCODING_VP8)
+					if (m_codec.get() == 0 || pVideoPackage->IsChange())
 					{
-						createVp8Codec(screen_size);
+						const desktop::CSize& screen_size = pFrame->Size();
+
+						CreateImage(screen_size, &m_image, &m_imageBuffer);
+						createActiveMap(screen_size);
+
+						if (m_encodingId == VIDEO_ENCODING_VP8)
+						{
+							createVp8Codec(screen_size);
+						}
+						else
+						{
+							createVp9Codec(screen_size);
+						}
+
+						m_updatedRegion = desktop::CRegion(desktop::CRect::MakeSize(screen_size));
 					}
 					else
 					{
-						createVp9Codec(screen_size);
+						m_updatedRegion.Clear();
 					}
 
-					m_updatedRegion = desktop::CRegion(desktop::CRect::MakeSize(screen_size));
-				}
-				else
-				{
-					m_updatedRegion.Clear();
-				}
+					// Convert the updated capture data ready for encode.
+					// Update active map based on updated region.
+					prepareImageAndActiveMap(pFrame, pVideoPackage);
 
-				// Convert the updated capture data ready for encode.
-				// Update active map based on updated region.
-				prepareImageAndActiveMap(pFrame, pVideoPackage);
+					// Apply active map to the encoder.
+					vpx_codec_err_t ret = vpx_codec_control(m_codec.get(), VP8E_SET_ACTIVEMAP, &m_activeMap);
+					//DCHECK_EQ(ret, VPX_CODEC_OK);
 
-				// Apply active map to the encoder.
-				vpx_codec_err_t ret = vpx_codec_control(m_codec.get(), VP8E_SET_ACTIVEMAP, &m_activeMap);
-				//DCHECK_EQ(ret, VPX_CODEC_OK);
+					// Do the actual encoding.
+					ret = vpx_codec_encode(m_codec.get(), m_image.get(), 0, 1, 0, VPX_DL_REALTIME);
+					//DCHECK_EQ(ret, VPX_CODEC_OK);
 
-				// Do the actual encoding.
-				ret = vpx_codec_encode(m_codec.get(), m_image.get(), 0, 1, 0, VPX_DL_REALTIME);
-				//DCHECK_EQ(ret, VPX_CODEC_OK);
+					// Read the encoded data.
+					vpx_codec_iter_t iter = nullptr;
 
-				// Read the encoded data.
-				vpx_codec_iter_t iter = nullptr;
-
-				while (true)
-				{
-					const vpx_codec_cx_pkt_t* pkt = vpx_codec_get_cx_data(m_codec.get(), &iter);
-					if (!pkt)
-						break;
-
-					if (pkt->kind == VPX_CODEC_CX_FRAME_PKT)
+					while (true)
 					{
-						pVideoPackage->SetEncodeData((const byte_t*)pkt->data.frame.buf, pkt->data.frame.sz);
-						break;
+						const vpx_codec_cx_pkt_t* pkt = vpx_codec_get_cx_data(m_codec.get(), &iter);
+						if (!pkt)
+							break;
+
+						if (pkt->kind == VPX_CODEC_CX_FRAME_PKT)
+						{
+							pVideoPackage->AddEncodeData((const byte_t*)pkt->data.frame.buf, pkt->data.frame.sz);
+							break;
+						}
 					}
+				}
+				catch (std::exception& excSrc)
+				{
+					CommonLib::CExcBase::RegenExc("Failed to encode", excSrc);
+					throw;
 				}
 			}
 		}

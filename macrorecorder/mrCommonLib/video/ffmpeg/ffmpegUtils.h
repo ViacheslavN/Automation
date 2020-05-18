@@ -1,4 +1,5 @@
 #pragma once
+#include "../VideoEncodingIds.h"
 
 namespace mrCommonLib
 {
@@ -10,6 +11,7 @@ namespace mrCommonLib
 			{
 			public:
 				static void CheckAndThrowException(int err);
+				static AVCodecID ConvertEncodeID2AVCodeID(EVideoEncoderId id);
 			};
 		}
 	}

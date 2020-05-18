@@ -1,10 +1,24 @@
 #pragma once
+
+
+extern "C"
+{
+	typedef struct AVCodecContext AVCodecContext;
+	typedef struct AVCodec	AVCodec;
+	enum AVCodecID;
+	enum AVPixelFormat;
+}
+
+
 namespace mrCommonLib
 {
 	namespace video
 	{
 		namespace ffmpeglib
 		{
+			class CAVPacket;
+			class CAVFrame;
+
 			class CBaseCodec
 			{
 			public:
@@ -18,6 +32,11 @@ namespace mrCommonLib
 				void SetGenericOption(const char* name, const char* value);
 
 				AVCodecContext* GetContext();
+
+				int OpenCodec();
+				int OpenCodec(uint32_t wight, uint32_t height, AVPixelFormat pxfmt);
+				int SendPacket(CAVPacket* packet);
+				int ReceiveFrame(CAVFrame* frame);
 
 			protected:
 				AVCodecContext* AllocContext(AVCodec* codec);

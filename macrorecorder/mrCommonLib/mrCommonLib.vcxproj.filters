@@ -37,6 +37,9 @@
     <Filter Include="video\vpx">
       <UniqueIdentifier>{c5593deb-a0c4-4bdf-8a9d-161648e05ced}</UniqueIdentifier>
     </Filter>
+    <Filter Include="video\x265">
+      <UniqueIdentifier>{c717aca7-91e5-4ca7-a275-7657c49b1a5a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -216,6 +219,30 @@
     <ClInclude Include="video\VideoDecoder.h">
       <Filter>video</Filter>
     </ClInclude>
+    <ClInclude Include="video\x265\VideoEncoderX265.h">
+      <Filter>video\x265</Filter>
+    </ClInclude>
+    <ClInclude Include="video\x265\x265Header.h">
+      <Filter>video\x265</Filter>
+    </ClInclude>
+    <ClInclude Include="video\x265\X265Picture.h">
+      <Filter>video\x265</Filter>
+    </ClInclude>
+    <ClInclude Include="video\x265\X265Param.h">
+      <Filter>video\x265</Filter>
+    </ClInclude>
+    <ClInclude Include="video\x265\X265Encoder.h">
+      <Filter>video\x265</Filter>
+    </ClInclude>
+    <ClInclude Include="video\ffmpeg\FFmpegVideoDecoder.h">
+      <Filter>video\ffmpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="video\ffmpeg\AVFrame.h">
+      <Filter>video\ffmpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="video\ffmpeg\AVPacket.h">
+      <Filter>video\ffmpeg</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mrCommonLib.cpp">
@@ -364,6 +391,27 @@
     </ClCompile>
     <ClCompile Include="video\VideoPackage.cpp">
       <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="video\x265\VideoEncoderX265.cpp">
+      <Filter>video\x265</Filter>
+    </ClCompile>
+    <ClCompile Include="video\x265\X265Picture.cpp">
+      <Filter>video\x265</Filter>
+    </ClCompile>
+    <ClCompile Include="video\x265\X265Param.cpp">
+      <Filter>video\x265</Filter>
+    </ClCompile>
+    <ClCompile Include="video\x265\X265Encoder.cpp">
+      <Filter>video\x265</Filter>
+    </ClCompile>
+    <ClCompile Include="video\ffmpeg\FFmpegVideoDecoder.cpp">
+      <Filter>video\ffmpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="video\ffmpeg\AVFrame.cpp">
+      <Filter>video\ffmpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="video\ffmpeg\AVPacket.cpp">
+      <Filter>video\ffmpeg</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

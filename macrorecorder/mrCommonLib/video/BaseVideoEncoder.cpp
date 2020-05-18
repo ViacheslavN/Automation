@@ -15,6 +15,7 @@ namespace mrCommonLib
 			if (m_lastSize != frame->Size())
 			{
 				m_lastSize = frame->Size();
+				pVideoPackage->SetChange();
 			}
 
 			pVideoPackage->SetScreenRect(desktop::CRect::MakeSize(m_lastSize));

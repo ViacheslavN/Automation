@@ -38,6 +38,16 @@
 
 
 #ifdef _DEBUG		  
+#pragma comment(lib, "../../../ThirdParty/x265/source/lib/Debug/common.lib")
+#pragma comment(lib, "../../../ThirdParty/x265/source/lib/Debug/encoder.lib")
+#else
+#pragma comment(lib, "../../../ThirdParty/x265/source/lib/Debug/common.lib")
+#pragma comment(lib, "../../../ThirdParty/x265/source/lib/Debug/encoder.lib")
+#endif
+
+
+
+#ifdef _DEBUG		  
 #pragma comment(lib, "../../../ThirdParty/ffmpeg/libs/debug/libavcodec.lib")
 #pragma comment(lib, "../../../ThirdParty/ffmpeg/libs/debug/libavdevice.lib")
 #pragma comment(lib, "../../../ThirdParty/ffmpeg/libs/debug/libavfilter.lib")

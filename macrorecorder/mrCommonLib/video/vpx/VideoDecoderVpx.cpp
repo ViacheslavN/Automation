@@ -108,10 +108,12 @@ namespace mrCommonLib
 				return m_encodingId;
 			}
 
-			void CVideoDecoderVPX::Decode(desktop::IFrame* pFrame, CVideoPackage *pVideoPackage)
+			void CVideoDecoderVPX::Decode(desktop::IFrame* pFrame, CVideoPackage *pVideoPackage, bool& isSkip)
 			{
 				try
 				{
+					isSkip = false;
+
 					vpx_codec_err_t ret =
 						vpx_codec_decode(m_codec.get(), pVideoPackage->GetEncodeData(), static_cast<unsigned int>(pVideoPackage->GetEncodeDataSize()),
 							nullptr,

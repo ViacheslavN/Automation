@@ -2,6 +2,8 @@
 #include "FFmpeg.h"
 #include "BaseCodec.h"
 #include "ffmpegUtils.h"
+#include "AVFrame.h"
+#include "AVPacket.h"
 
 namespace mrCommonLib
 {
@@ -47,6 +49,7 @@ namespace mrCommonLib
 
 				m_codecContext = AllocContext(codec);
 			}
+
 
 			CBaseCodec::~CBaseCodec()
 			{
@@ -108,6 +111,34 @@ namespace mrCommonLib
 			{
 				if (m_codecContext != nullptr)
 					avcodec_free_context(&m_codecContext);
+			}
+
+			int CBaseCodec::OpenCodec()
+			{
+				AVCodecContext* ctx = GetContextExc();
+				return avcodec_open2(ctx, ctx->codec, NULL);
+			}
+
+			int CBaseCodec::OpenCodec(uint32_t wight, uint32_t height, AVPixelFormat pxfmt)
+			{
+				AVCodecContext* ctx = GetContextExc();
+				ctx->width = wight;
+				ctx->height = height;
+				ctx->pix_fmt = pxfmt;
+
+				return  avcodec_open2(ctx, ctx->codec, NULL);
+			}
+
+			int CBaseCodec::SendPacket(CAVPacket* packet)
+			{
+				AVCodecContext* ctx = GetContextExc();
+				return avcodec_send_packet(ctx, packet->GetPacket());
+			}
+
+			int CBaseCodec::ReceiveFrame(CAVFrame* frame)
+			{
+				AVCodecContext* ctx = GetContextExc();
+				return  avcodec_receive_frame(ctx, frame->GetFrame());
 			}
 		}
 	}

@@ -3,6 +3,7 @@
 #include "ffmpeg/FFmpeg.h"
 #include "ffmpeg/FFmpegVideoEncoder.h"
 #include "vpx/VideoEncoderVpx.h"
+#include "x265/VideoEncoderX265.h"
 
 namespace mrCommonLib
 {
@@ -24,6 +25,7 @@ namespace mrCommonLib
 				return vpxlib::CVideoEncoderVPX::createVP9();
 				break;
 			case mrCommonLib::video::VIDEO_ENCODING_X265:
+				return IVideoEncoderPtr((IVideoEncoder*)new x265lib::CVideoEncoderX265());
 				break;
 			default:
 				break;

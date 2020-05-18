@@ -19,11 +19,12 @@ namespace mrCommonLib
 
 			void Clear();
 
+			void SetChange();
 			void SetEncoderId(EVideoEncoderId codecId);
 			void SetPixelFormat(const desktop::CPixelFormat& format);
 			void AddDirtyRect(const desktop::CRect& rect);
 			void SetScreenRect(const desktop::CRect& rect);
-			void SetEncodeData(const byte_t *pData, size_t nSize);
+			void AddEncodeData(const byte_t *pData, size_t nSize);
 
 			EVideoEncoderId GetEncoderId() const;
 			uint32_t GetDirtyRectCount() const;
@@ -32,6 +33,7 @@ namespace mrCommonLib
 			const desktop::CRect& GetScreenRect() const;
 			uint32_t GetEncodeDataSize() const;
 			const byte_t *GetEncodeData() const;
+			bool IsChange() const;
 				
 		private:
 			std::vector<uint8_t> m_data;
@@ -39,6 +41,7 @@ namespace mrCommonLib
 			desktop::CRect m_screenRect;
 			desktop::CPixelFormat m_format;
 			EVideoEncoderId m_codecId = VIDEO_ENCODING_NODE;
+			bool m_change = false;
 
 
 		};
