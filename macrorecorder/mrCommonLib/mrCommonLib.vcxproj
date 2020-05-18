@@ -386,6 +386,7 @@
     <ClInclude Include="video\ffmpeg\Encoder.h" />
     <ClInclude Include="video\ffmpeg\FFmpeg.h" />
     <ClInclude Include="video\ffmpeg\FFmpegException.h" />
+    <ClInclude Include="video\ffmpeg\FFmpegFileVideoEncoder.h" />
     <ClInclude Include="video\ffmpeg\FFmpegLib.h" />
     <ClInclude Include="video\ffmpeg\ffmpegUtils.h" />
     <ClInclude Include="video\ffmpeg\FFmpegVideoDecoder.h" />
@@ -401,6 +402,7 @@
     <ClInclude Include="video\vpx\vpx.h" />
     <ClInclude Include="video\vpx\VPXException.h" />
     <ClInclude Include="video\vpx\vpx_codec.h" />
+    <ClInclude Include="video\x265\FileVideoEncodeX265.h" />
     <ClInclude Include="video\x265\VideoEncoderX265.h" />
     <ClInclude Include="video\x265\X265Encoder.h" />
     <ClInclude Include="video\x265\x265Header.h" />
@@ -465,6 +467,7 @@
     <ClCompile Include="video\ffmpeg\BaseCodec.cpp" />
     <ClCompile Include="video\ffmpeg\Encoder.cpp" />
     <ClCompile Include="video\ffmpeg\FFmpegException.cpp" />
+    <ClCompile Include="video\ffmpeg\FFmpegFileVideoEncoder.cpp" />
     <ClCompile Include="video\ffmpeg\ffmpegUtils.cpp" />
     <ClCompile Include="video\ffmpeg\FFmpegVideoDecoder.cpp" />
     <ClCompile Include="video\ffmpeg\FFmpegVideoEncoder.cpp" />
@@ -477,6 +480,7 @@
     <ClCompile Include="video\vpx\vpx_codec.cpp" />
     <ClCompile Include="video\vpx\VideoEncoderVpx.cpp" />
     <ClCompile Include="video\vpx\VPXException.cpp" />
+    <ClCompile Include="video\x265\FileVideoEncodeX265.cpp" />
     <ClCompile Include="video\x265\VideoEncoderX265.cpp" />
     <ClCompile Include="video\x265\X265Encoder.cpp" />
     <ClCompile Include="video\x265\X265Param.cpp" />

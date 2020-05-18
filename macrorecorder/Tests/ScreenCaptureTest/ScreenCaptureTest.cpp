@@ -15,15 +15,28 @@ int main()
 		mrCommonLib::video::EVideoEncoderId id = mrCommonLib::video::VIDEO_ENCODING_MPEG4;
 		mrCommonLib::video::IVideoEncoderPtr videoEncoder = mrCommonLib::video::IVideoEncoder::CreateVideoEncoder(id);
 		mrCommonLib::video::IVideoDecoderPtr videoDecoder = mrCommonLib::video::IVideoDecoder::CreateVideoDecoder(id);
+		mrCommonLib::video::IVideoFileEncoderPtr videoFileEncoder; 
 
 		mrCommonLib::desktop::win::CScreenCapturerDxgi dxCapture;
 		mrCommonLib::desktop::IFramePtr pDecodeFrame;
+
+
+
+
 		for (int i = 0; i < 100; ++i)
 		{
 			CommonLib::CWriteMemoryStream writeStream;
 			CommonLib::CReadMemoryStream readStream;
 			mrCommonLib::video::CVideoPackage encodePackage, decodePackage;
 			mrCommonLib::desktop::IFramePtr pFrame = dxCapture.CaptureFrame();
+
+			if (videoFileEncoder.get() == nullptr)
+			{
+				videoFileEncoder = mrCommonLib::video::IVideoFileEncoder::CreateVideoEncoder(id);
+				videoFileEncoder->OpenFile("D:\\Frames\\DecodeFrame.mp4", pFrame->Size().Width(), pFrame->Size().Height(), pFrame->Format());
+			}
+
+			videoFileEncoder->Encode(pFrame.get());
 
 			bool bSkip = false;
 			videoEncoder->Encode(pFrame.get(), &encodePackage, bSkip);
@@ -47,6 +60,8 @@ int main()
 				mrCommonLib::desktop::SaveFrameToFile(pDecodeFrame, CommonLib::str_format::AStrFormatSafeT("D:\\Frames\\DecodeFrame_%1.bmp", i));
 			 
 		}
+
+		videoFileEncoder->Close();
 
 		//mrCommonLib::desktop::win::CScreenCapturerGdi gdiCapture;
 	

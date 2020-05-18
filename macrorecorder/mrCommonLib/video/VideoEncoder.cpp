@@ -2,8 +2,10 @@
 #include "VideoEncoder.h"
 #include "ffmpeg/FFmpeg.h"
 #include "ffmpeg/FFmpegVideoEncoder.h"
+#include "ffmpeg/FFmpegFileVideoEncoder.h"
 #include "vpx/VideoEncoderVpx.h"
 #include "x265/VideoEncoderX265.h"
+#include "x265/FileVideoEncodeX265.h"
 
 namespace mrCommonLib
 {
@@ -33,5 +35,31 @@ namespace mrCommonLib
 
 			throw CommonLib::CExcBase("Unknown encoder id %1", id);
 		}
+
+
+		IVideoFileEncoderPtr IVideoFileEncoder::CreateVideoEncoder(EVideoEncoderId id)
+		{
+			switch (id)
+			{
+			case mrCommonLib::video::VIDEO_ENCODING_NODE:
+				break;
+			case mrCommonLib::video::VIDEO_ENCODING_MPEG4:
+				return IVideoFileEncoderPtr((IVideoFileEncoder*)new ffmpeglib::CFFmpegFileVideoEncoder(VIDEO_ENCODING_MPEG4));
+				break;
+			case mrCommonLib::video::VIDEO_ENCODING_VP8:
+				break;
+			case mrCommonLib::video::VIDEO_ENCODING_VP9:
+				break;
+			case mrCommonLib::video::VIDEO_ENCODING_X265:
+				return IVideoFileEncoderPtr((IVideoFileEncoder*)new x265lib::CFileVideoEncoderX265());
+				break;
+			default:
+				break;
+			}
+
+
+			throw CommonLib::CExcBase("Unknown encoder id %1", id);
+		}
+
 	}
 }

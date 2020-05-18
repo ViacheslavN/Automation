@@ -243,6 +243,12 @@
     <ClInclude Include="video\ffmpeg\AVPacket.h">
       <Filter>video\ffmpeg</Filter>
     </ClInclude>
+    <ClInclude Include="video\x265\FileVideoEncodeX265.h">
+      <Filter>video\x265</Filter>
+    </ClInclude>
+    <ClInclude Include="video\ffmpeg\FFmpegFileVideoEncoder.h">
+      <Filter>video\ffmpeg</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mrCommonLib.cpp">
@@ -411,6 +417,12 @@
       <Filter>video\ffmpeg</Filter>
     </ClCompile>
     <ClCompile Include="video\ffmpeg\AVPacket.cpp">
+      <Filter>video\ffmpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="video\x265\FileVideoEncodeX265.cpp">
+      <Filter>video\x265</Filter>
+    </ClCompile>
+    <ClCompile Include="video\ffmpeg\FFmpegFileVideoEncoder.cpp">
       <Filter>video\ffmpeg</Filter>
     </ClCompile>
   </ItemGroup>

@@ -146,7 +146,7 @@ namespace mrCommonLib
 			int CBaseCodec::SendFrame(CAVFrame* frame)
 			{
 				AVCodecContext* ctx = GetContextExc();
-				return  avcodec_send_frame(ctx, frame->GetFrame());
+				return  avcodec_send_frame(ctx, frame ? frame->GetFrame() : nullptr);
 			}
 
 			int CBaseCodec::ReceivePacket(CAVPacket* packet)

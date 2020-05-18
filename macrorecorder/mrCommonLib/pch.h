@@ -19,6 +19,7 @@
 #include "../../../CommonLib/log/logger.h"
 #include "../../../CommonLib/log/LogInfo.h"
 #include "../../../CommonLib/stream/stream.h"
+#include "../../../CommonLib/filesystem/File.h"
 
 #ifdef _WIN32
 
