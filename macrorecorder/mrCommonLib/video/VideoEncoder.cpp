@@ -16,7 +16,7 @@ namespace mrCommonLib
 			switch (id)
 			{
 			case mrCommonLib::video::VIDEO_ENCODING_MPEG4:
-				return IVideoEncoderPtr((IVideoEncoder*)new ffmpeglib::CFFmpegVideoEncoder(AV_CODEC_ID_MPEG4));
+				return IVideoEncoderPtr((IVideoEncoder*)new ffmpeglib::CFFmpegVideoEncoder(VIDEO_ENCODING_MPEG4));
 				break;
 			case mrCommonLib::video::VIDEO_ENCODING_VP8:
 				return vpxlib::CVideoEncoderVPX::createVP8();

@@ -13,7 +13,7 @@ namespace mrCommonLib
 			namespace
 			{
 
-				void ConvertImage(CVideoPackage *pVideoPackage, vpx_image_t* image, desktop::IFrame* frame)
+				void ConvertImage(const CVideoPackage *pVideoPackage, vpx_image_t* image, desktop::IFrame* frame)
 				{
 					try
 					{
@@ -108,7 +108,7 @@ namespace mrCommonLib
 				return m_encodingId;
 			}
 
-			void CVideoDecoderVPX::Decode(desktop::IFrame* pFrame, CVideoPackage *pVideoPackage, bool& isSkip)
+			void CVideoDecoderVPX::Decode(desktop::IFrame* pFrame, const CVideoPackage *pVideoPackage, bool& isSkip)
 			{
 				try
 				{

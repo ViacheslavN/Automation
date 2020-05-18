@@ -1,7 +1,13 @@
 #include "pch.h"
 #include "FFmpeg.h"
 #include "BaseCodec.h"
+#include "AVFrame.h"
+#include "AVPacket.h"
 #include "FFmpegVideoEncoder.h"
+#include "ffmpegUtils.h"
+#include "FFmpegException.h"
+#include "../../../../../ThirdParty/libyuv/include/libyuv/convert.h"
+#include "../../../../../ThirdParty/libyuv/include/libyuv/convert_from_argb.h"
 
 namespace mrCommonLib
 {
@@ -9,12 +15,7 @@ namespace mrCommonLib
 	{
 		namespace ffmpeglib
 		{
-			CFFmpegVideoEncoder::CFFmpegVideoEncoder(const char* codecName) : m_codec(codecName, true)
-			{
-
-			}
-
-			CFFmpegVideoEncoder::CFFmpegVideoEncoder(AVCodecID codecId) : m_codec(codecId, true)
+			CFFmpegVideoEncoder::CFFmpegVideoEncoder(EVideoEncoderId encodeId) : m_encodeId(encodeId)
 			{
 
 			}
@@ -24,9 +25,83 @@ namespace mrCommonLib
 
 			}
 
-			void CFFmpegVideoEncoder::Encode(desktop::IFrame* pFrame, CVideoPackage *pVideoPackage)
+			void CFFmpegVideoEncoder::Encode(desktop::IFrame* pFrame, CVideoPackage *pVideoPackage, bool &isSkip)
 			{
+				try
+				{
+					FillPacketInfo(m_encodeId, pFrame, pVideoPackage);
+					isSkip = true;
 
+					if (m_codec.get() == nullptr || pVideoPackage->IsChange())
+					{
+						AVCodecID av_codec = CFFmpegUtil::ConvertEncodeID2AVCodeID(m_encodeId);
+
+						m_codec.reset(new CBaseCodec(av_codec, true));
+						int ret = m_codec->OpenCodec(pFrame->Size().Width(), pFrame->Size().Height(), AV_PIX_FMT_YUV420P);
+						if (ret < 0)
+							throw CFFmpegException(ret, "Failed to open codec");
+
+						m_packet.reset(new CAVPacket());
+						m_frame.reset(new CAVFrame(m_codec.get()));
+						m_frameCount = 0;
+					
+					}
+
+
+					auto convert_to_i420 = libyuv::ARGBToI420;
+
+					if (pFrame->Format().BitsPerPixel() == 16)
+						convert_to_i420 = libyuv::RGB565ToI420;
+
+
+					const desktop::CRect rect = desktop::CRect::MakeSize(pFrame->Size());
+
+
+					const int y_stride = m_frame->GetFrame()->linesize[0];
+					const int uv_stride = m_frame->GetFrame()->linesize[1];
+					uint8_t* y_data = (uint8_t*)m_frame->GetFrame()->data[0];
+					uint8_t* u_data = (uint8_t*)m_frame->GetFrame()->data[1];
+					uint8_t* v_data = (uint8_t*)m_frame->GetFrame()->data[2];
+
+
+					const int y_offset = y_stride * rect.Y() + rect.X();
+					const int uv_offset = uv_stride * rect.Y() / 2 + rect.X() / 2;
+
+
+
+					convert_to_i420(pFrame->DataAtPos(rect.TopLeft()),
+						pFrame->Stride(),
+						y_data + y_offset, y_stride,
+						u_data + uv_offset, uv_stride,
+						v_data + uv_offset, uv_stride,
+						rect.Width(),
+						rect.Height());
+
+					m_frame->GetFrame()->pts = m_frameCount;
+					int ret = m_codec->SendFrame(m_frame.get());
+					if (ret != 0)
+						throw CFFmpegException(ret, "Failed to send frame");
+
+					m_frameCount += 1;
+					ret = 0;
+					while (ret >= 0)
+					{
+						ret = m_codec->ReceivePacket(m_packet.get());
+						if (ret == AVERROR(EAGAIN) || ret == AVERROR_EOF)
+							return;
+
+						else if (ret < 0)
+							throw CFFmpegException(ret, "Error during encoding");
+
+						pVideoPackage->AddEncodeData(m_packet->GetPacket()->data, m_packet->GetPacket()->size);
+						isSkip = false;
+					}
+				}
+				catch (std::exception& excSrc)
+				{
+					CommonLib::CExcBase::RegenExc("Failed to encode", excSrc);
+					throw;
+				}
 			}
 		}
 	}

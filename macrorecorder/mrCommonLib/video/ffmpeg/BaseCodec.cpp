@@ -125,6 +125,8 @@ namespace mrCommonLib
 				ctx->width = wight;
 				ctx->height = height;
 				ctx->pix_fmt = pxfmt;
+				ctx->time_base =  { 1, 25 };
+				ctx->framerate =  { 25, 1 };
 
 				return  avcodec_open2(ctx, ctx->codec, NULL);
 			}
@@ -139,6 +141,18 @@ namespace mrCommonLib
 			{
 				AVCodecContext* ctx = GetContextExc();
 				return  avcodec_receive_frame(ctx, frame->GetFrame());
+			}
+
+			int CBaseCodec::SendFrame(CAVFrame* frame)
+			{
+				AVCodecContext* ctx = GetContextExc();
+				return  avcodec_send_frame(ctx, frame->GetFrame());
+			}
+
+			int CBaseCodec::ReceivePacket(CAVPacket* packet)
+			{
+				AVCodecContext* ctx = GetContextExc();
+				return  avcodec_receive_packet(ctx, packet->GetPacket());
 			}
 		}
 	}

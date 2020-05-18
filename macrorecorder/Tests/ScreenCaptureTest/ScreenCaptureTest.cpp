@@ -12,7 +12,7 @@ int main()
 
 	try
 	{
-		mrCommonLib::video::EVideoEncoderId id = mrCommonLib::video::VIDEO_ENCODING_X265;
+		mrCommonLib::video::EVideoEncoderId id = mrCommonLib::video::VIDEO_ENCODING_MPEG4;
 		mrCommonLib::video::IVideoEncoderPtr videoEncoder = mrCommonLib::video::IVideoEncoder::CreateVideoEncoder(id);
 		mrCommonLib::video::IVideoDecoderPtr videoDecoder = mrCommonLib::video::IVideoDecoder::CreateVideoDecoder(id);
 
@@ -25,7 +25,11 @@ int main()
 			mrCommonLib::video::CVideoPackage encodePackage, decodePackage;
 			mrCommonLib::desktop::IFramePtr pFrame = dxCapture.CaptureFrame();
 
-			videoEncoder->Encode(pFrame.get(), &encodePackage);
+			bool bSkip = false;
+			videoEncoder->Encode(pFrame.get(), &encodePackage, bSkip);
+			if(bSkip)
+				continue;
+
 			encodePackage.Save(&writeStream);
 
 			readStream.AttachBuffer(writeStream.Buffer(), writeStream.Pos());
@@ -37,7 +41,7 @@ int main()
 			if(pDecodeFrame.get() == nullptr)
 					pDecodeFrame.reset(new mrCommonLib::desktop::CDataFrame(decodePackage.GetPixelFormat(), mrCommonLib::desktop::CSize(rect.Width(), rect.Height())));
 
-			bool bSkip = false;
+			bSkip = false;
 			videoDecoder->Decode(pDecodeFrame.get(), &decodePackage, bSkip);
 			if(!bSkip)
 				mrCommonLib::desktop::SaveFrameToFile(pDecodeFrame, CommonLib::str_format::AStrFormatSafeT("D:\\Frames\\DecodeFrame_%1.bmp", i));

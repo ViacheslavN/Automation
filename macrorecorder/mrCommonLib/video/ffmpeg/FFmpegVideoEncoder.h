@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../VideoEncoder.h"
+#include "../BaseVideoEncoder.h"
 #include "BaseCodec.h"
 
 namespace mrCommonLib
@@ -9,18 +9,24 @@ namespace mrCommonLib
 	{
 		namespace ffmpeglib
 		{
-			class CFFmpegVideoEncoder : IVideoEncoder
+			class CAVPacket;
+			class CAVFrame;
+			class CBaseCodec;
+
+			class CFFmpegVideoEncoder : IBaseVideoEncoder
 			{
 			public:
-				CFFmpegVideoEncoder(const char* codecName);
-				CFFmpegVideoEncoder(AVCodecID codecId);
+				CFFmpegVideoEncoder(EVideoEncoderId encodeId);
 				virtual ~CFFmpegVideoEncoder();
 
-				virtual void Encode(desktop::IFrame* pFrame, CVideoPackage *pVideoPackage);
+				virtual void Encode(desktop::IFrame* pFrame, CVideoPackage *pVideoPackage, bool &isSkip);
 
 			private:
-				AVFormatContext m_formatContext;
-				CBaseCodec m_codec;
+				std::unique_ptr<CBaseCodec> m_codec;
+				EVideoEncoderId m_encodeId;
+				std::unique_ptr<CAVFrame>  m_frame;
+				std::unique_ptr<CAVPacket>  m_packet;
+				uint32_t m_frameCount = 0;
 			};
 		}
 	}

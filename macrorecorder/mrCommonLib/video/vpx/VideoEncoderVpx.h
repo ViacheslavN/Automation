@@ -17,7 +17,7 @@ namespace mrCommonLib
 
 				static IVideoEncoderPtr createVP8();
 				static IVideoEncoderPtr createVP9();
-				virtual void Encode(desktop::IFrame* pFrame, CVideoPackage *pVideoPackage);
+				virtual void Encode(desktop::IFrame* pFrame, CVideoPackage *pVideoPackage, bool& bSkip);
 
 			private:
 				explicit CVideoEncoderVPX(EVideoEncoderId encodingId);

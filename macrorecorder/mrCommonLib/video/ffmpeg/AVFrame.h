@@ -11,11 +11,14 @@ namespace mrCommonLib
 	{
 		namespace ffmpeglib
 		{
+			class CBaseCodec;
 
 			class CAVFrame
 			{
 			public:
 				CAVFrame();
+				CAVFrame(CBaseCodec *pCodec);
+
 				~CAVFrame();
 
 				AVFrame * GetFrame();

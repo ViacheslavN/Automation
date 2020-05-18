@@ -17,7 +17,7 @@ namespace mrCommonLib
 				~CVideoEncoderX265() = default;
 				CVideoEncoderX265();
 
-				virtual void Encode(desktop::IFrame* pFrame, CVideoPackage *pVideoPackage);
+				virtual void Encode(desktop::IFrame* pFrame, CVideoPackage *pVideoPackage, bool& bSkip);
 			private:
 				X265EncoderPtr m_encoder;
 				X265PicturePtr m_picture;

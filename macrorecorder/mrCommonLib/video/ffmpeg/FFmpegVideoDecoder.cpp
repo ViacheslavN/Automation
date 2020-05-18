@@ -74,7 +74,7 @@ namespace mrCommonLib
 			}
 		
 
-			void CFFmpegVideoDecoder::Decode(desktop::IFrame* pFrame, CVideoPackage *pVideoPackage, bool& isSkip)
+			void CFFmpegVideoDecoder::Decode(desktop::IFrame* pFrame, const CVideoPackage *pVideoPackage, bool& isSkip)
 			{
 				try
 				{
@@ -105,7 +105,7 @@ namespace mrCommonLib
 
 					m_packet->AttachData(pVideoPackage->GetEncodeData(), pVideoPackage->GetEncodeDataSize());
 
-					while (true)
+				//	while (true)
 					{
 						int ret = m_codec->SendPacket(m_packet.get());
 						if (ret != 0)
@@ -118,29 +118,11 @@ namespace mrCommonLib
 							return;
 						}
 
-						if(ret == 0 )
-							break;;
-
-						if (ret != AVERROR(EAGAIN))
+						if(ret != 0 )
 							throw CFFmpegException(ret, "Failed to recive frame");
 					}
 
-
-					/*	AVFrame* frame = av_frame_alloc();
-					ret = -1;
-					while (ret != 0 || ret == AVERROR(EAGAIN))
-					{
-						ret = avcodec_send_packet(ctx, avpkt);
-						if (ret != 0)
-							throw CFFmpegException(ret, "Failed avcodec_send_packet");
-						ret = avcodec_receive_frame(ctx, frame);
-					}
-
-					if(ret != 0)
-						throw CFFmpegException(ret, "Failed to encode");*/
-
-					ConvertImage(m_frame.get(), pFrame);
-					 
+					ConvertImage(m_frame.get(), pFrame);					 
 					
 				}			
 				catch (std::exception& excSrc)

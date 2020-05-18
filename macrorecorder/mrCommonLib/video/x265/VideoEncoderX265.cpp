@@ -14,10 +14,11 @@ namespace mrCommonLib
 
 			}
 
-			void CVideoEncoderX265::Encode(desktop::IFrame* pFrame, CVideoPackage *pVideoPackage)
+			void CVideoEncoderX265::Encode(desktop::IFrame* pFrame, CVideoPackage *pVideoPackage, bool& bSkip)
 			{
 				try
 				{
+					bSkip = true;
 					FillPacketInfo(VIDEO_ENCODING_X265, pFrame, pVideoPackage);
 					if (m_encoder.get() == nullptr || pVideoPackage->IsChange())
 					{
@@ -38,6 +39,8 @@ namespace mrCommonLib
 						if (ret < 0)
 							throw CommonLib::CExcBase("Error encode header");
 
+						if(iNal != 0)
+							bSkip= false;
 
 						for (int i = 0; i < iNal; ++i)
 						{
@@ -90,6 +93,9 @@ namespace mrCommonLib
 					ret = m_encoder->Encode(&pNals, &iNal, m_picture->GetHandle(), nullptr);
 					if (ret < 0)
 						throw CommonLib::CExcBase("Error encode");
+
+					if (iNal != 0)
+						bSkip = false;
 
 					for (int i = 0; i < iNal; ++i)
 					{

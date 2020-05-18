@@ -14,7 +14,7 @@ namespace mrCommonLib
 			IVideoEncoder() {}
 			virtual ~IVideoEncoder() {}
 
-			virtual void Encode(desktop::IFrame* pFrame, CVideoPackage *pVideoPackage) = 0;
+			virtual void Encode(desktop::IFrame* pFrame, CVideoPackage *pVideoPackage, bool& bSkip) = 0;
 
 			static 	IVideoEncoderPtr CreateVideoEncoder(EVideoEncoderId id);
 		};

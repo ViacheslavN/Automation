@@ -336,10 +336,11 @@ namespace mrCommonLib
 				}
 			}
 
-			void CVideoEncoderVPX::Encode(desktop::IFrame* pFrame, CVideoPackage *pVideoPackage)
+			void CVideoEncoderVPX::Encode(desktop::IFrame* pFrame, CVideoPackage *pVideoPackage, bool& bSkip)
 			{
 				try
 				{
+					bSkip = false;
 					FillPacketInfo(m_encodingId, pFrame, pVideoPackage);
 
 					if (m_codec.get() == 0 || pVideoPackage->IsChange())

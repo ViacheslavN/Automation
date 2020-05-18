@@ -32,15 +32,19 @@ namespace mrCommonLib
 				void SetGenericOption(const char* name, const char* value);
 
 				AVCodecContext* GetContext();
+				AVCodecContext* GetContextExc();
 
 				int OpenCodec();
 				int OpenCodec(uint32_t wight, uint32_t height, AVPixelFormat pxfmt);
 				int SendPacket(CAVPacket* packet);
 				int ReceiveFrame(CAVFrame* frame);
 
+				int SendFrame(CAVFrame* frame);
+				int ReceivePacket(CAVPacket* packet);
+
 			protected:
 				AVCodecContext* AllocContext(AVCodec* codec);
-				AVCodecContext* GetContextExc();
+			
 				void Clean();
 			protected:
 				AVCodecContext* m_codecContext = nullptr;
