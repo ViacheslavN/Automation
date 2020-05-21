@@ -13,10 +13,11 @@ int main()
 	try
 	{
 		mrCommonLib::video::EVideoEncoderId id = mrCommonLib::video::VIDEO_ENCODING_MPEG4;
+		mrCommonLib::video::EVideoEncoderId videoId = mrCommonLib::video::VIDEO_ENCODING_MPEG4;
 		mrCommonLib::video::IVideoEncoderPtr videoEncoder = mrCommonLib::video::IVideoEncoder::CreateVideoEncoder(id);
 		mrCommonLib::video::IVideoDecoderPtr videoDecoder = mrCommonLib::video::IVideoDecoder::CreateVideoDecoder(id);
 		mrCommonLib::video::IVideoFileEncoderPtr videoFileEncoder; 
-
+		 
 		mrCommonLib::desktop::win::CScreenCapturerDxgi dxCapture;
 		mrCommonLib::desktop::IFramePtr pDecodeFrame;
 
@@ -32,7 +33,7 @@ int main()
 
 			if (videoFileEncoder.get() == nullptr)
 			{
-				videoFileEncoder = mrCommonLib::video::IVideoFileEncoder::CreateVideoEncoder(id);
+				videoFileEncoder = mrCommonLib::video::IVideoFileEncoder::CreateVideoEncoder(videoId);
 				videoFileEncoder->OpenFile("D:\\Frames\\DecodeFrame.mp4", pFrame->Size().Width(), pFrame->Size().Height(), pFrame->Format());
 			}
 

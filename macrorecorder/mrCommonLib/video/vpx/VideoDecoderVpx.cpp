@@ -1,8 +1,7 @@
 #include "pch.h"
 #include "VideoDecoderVpx.h"
 #include "VPXException.h"
-#include "../../../../../ThirdParty/libyuv/include/libyuv/convert.h"
-#include "../../../../../ThirdParty/libyuv/include/libyuv/convert_from_argb.h"
+#include "../FormatConvertor.h"
 
 namespace mrCommonLib
 {
@@ -35,21 +34,13 @@ namespace mrCommonLib
 
 							if (!frame_rect.ContainsRect(rect))
 							{
-								//LOG(LS_WARNING) << "The rectangle is outside the screen area";
-								//return false;
 								throw CommonLib::CExcBase("The rectangle is outside the screen area");
 							}
 
 							int y_offset = y_stride * rect.Y() + rect.X();
 							int uv_offset = uv_stride * rect.Y() / 2 + rect.X() / 2;
 
-							libyuv::I420ToARGB(y_data + y_offset, y_stride,
-								u_data + uv_offset, uv_stride,
-								v_data + uv_offset, uv_stride,
-								frame->DataAtPos(rect.TopLeft()),
-								frame->Stride(),
-								rect.Width(),
-								rect.Height());
+							CConvertPixels::ConvertI420ToARGB(y_data + y_offset, u_data + uv_offset, v_data + uv_offset, y_stride, uv_stride, frame->DataAtPos(rect.TopLeft()), rect.Width(), rect.Height(), frame->Stride());
 						}
 					}
 					catch (std::exception& excSrc)

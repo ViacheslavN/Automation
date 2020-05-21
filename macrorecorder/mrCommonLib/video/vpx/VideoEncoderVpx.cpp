@@ -1,10 +1,11 @@
 #include "pch.h"
 #include "VideoEncoderVpx.h"
-#include "../../../../../ThirdParty/libyuv/include/libyuv/convert.h"
-#include "../../../../../ThirdParty/libyuv/include/libyuv/convert_from_argb.h"
+#include "../FormatConvertor.h" 
 #include "VPXException.h"
 #include "../VideoUtil.h"
 #include <thread>
+
+
 
 namespace mrCommonLib
 {
@@ -311,10 +312,10 @@ namespace mrCommonLib
 				uint8_t* u_data = m_image->planes[1];
 				uint8_t* v_data = m_image->planes[2];
 
-				auto convert_to_i420 = libyuv::ARGBToI420;
+				/*auto convert_to_i420 = libyuv::ARGBToI420;
 
 				if (frame->Format().BitsPerPixel() == 16)
-					convert_to_i420 = libyuv::RGB565ToI420;
+					convert_to_i420 = libyuv::RGB565ToI420;*/
 
 				for (desktop::CRegion::Iterator it(m_updatedRegion); !it.IsAtEnd(); it.Advance())
 				{
@@ -323,13 +324,16 @@ namespace mrCommonLib
 					const int y_offset = y_stride * rect.Y() + rect.X();
 					const int uv_offset = uv_stride * rect.Y() / 2 + rect.X() / 2;
 
-					convert_to_i420(frame->DataAtPos(rect.TopLeft()),
+					/*convert_to_i420(frame->DataAtPos(rect.TopLeft()),
 						frame->Stride(),
 						y_data + y_offset, y_stride,
 						u_data + uv_offset, uv_stride,
 						v_data + uv_offset, uv_stride,
 						rect.Width(),
-						rect.Height());
+						rect.Height());*/
+
+					CConvertPixels::ConvertToI420(frame->DataAtPos(rect.TopLeft()), rect.Width(), rect.Height(), frame->Format(), frame->Stride(),
+						y_data + y_offset, u_data + uv_offset, v_data + uv_offset, y_stride, uv_stride);
 
 					pVideoPackage->AddDirtyRect(rect);
 					setActiveMap(rect);

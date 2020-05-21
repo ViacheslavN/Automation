@@ -6,8 +6,8 @@
 #include "FFmpegVideoDecoder.h"
 #include "ffmpegUtils.h"
 #include "FFmpegException.h"
-#include "../../../../../ThirdParty/libyuv/include/libyuv/convert.h"
-#include "../../../../../ThirdParty/libyuv/include/libyuv/convert_from_argb.h"
+#include "../FormatConvertor.h"
+
 namespace mrCommonLib
 {
 	namespace video
@@ -43,28 +43,7 @@ namespace mrCommonLib
 					int y_stride = picture->linesize[0];
 					int uv_stride = picture->linesize[1];
 
-//					for (int i = 0; i < pVideoPackage->GetDirtyRectCount(); ++i)
-					{
-						desktop::CRect rect = desktop::CRect::MakeSize(frame->Size());
-
-					//	if (!frame_rect.ContainsRect(rect))
-					//	{
-							//LOG(LS_WARNING) << "The rectangle is outside the screen area";
-							//return false;
-					//		throw CommonLib::CExcBase("The rectangle is outside the screen area");
-					//	}
-
-						int y_offset = y_stride * rect.Y() + rect.X();
-						int uv_offset = uv_stride * rect.Y() / 2 + rect.X() / 2;
-
-						libyuv::I420ToARGB(y_data + y_offset, y_stride,
-							u_data + uv_offset, uv_stride,
-							v_data + uv_offset, uv_stride,
-							frame->DataAtPos(rect.TopLeft()),
-							frame->Stride(),
-							rect.Width(),
-							rect.Height());
-					}
+					CConvertPixels::ConvertI420ToARGB(y_data, u_data, v_data, y_stride, uv_stride, frame);
 				}
 				catch (std::exception& excSrc)
 				{

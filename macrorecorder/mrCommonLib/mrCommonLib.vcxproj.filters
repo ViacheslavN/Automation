@@ -249,6 +249,9 @@
     <ClInclude Include="video\ffmpeg\FFmpegFileVideoEncoder.h">
       <Filter>video\ffmpeg</Filter>
     </ClInclude>
+    <ClInclude Include="video\FormatConvertor.h">
+      <Filter>video</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mrCommonLib.cpp">
@@ -424,6 +427,9 @@
     </ClCompile>
     <ClCompile Include="video\ffmpeg\FFmpegFileVideoEncoder.cpp">
       <Filter>video\ffmpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="video\FormatConvertor.cpp">
+      <Filter>video</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

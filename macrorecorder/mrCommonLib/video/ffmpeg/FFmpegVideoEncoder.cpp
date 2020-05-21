@@ -6,8 +6,7 @@
 #include "FFmpegVideoEncoder.h"
 #include "ffmpegUtils.h"
 #include "FFmpegException.h"
-#include "../../../../../ThirdParty/libyuv/include/libyuv/convert.h"
-#include "../../../../../ThirdParty/libyuv/include/libyuv/convert_from_argb.h"
+#include "../FormatConvertor.h"
 
 namespace mrCommonLib
 {
@@ -47,14 +46,7 @@ namespace mrCommonLib
 					
 					}
 
-
-					auto convert_to_i420 = libyuv::ARGBToI420;
-
-					if (pFrame->Format().BitsPerPixel() == 16)
-						convert_to_i420 = libyuv::RGB565ToI420;
-
-
-					const desktop::CRect rect = desktop::CRect::MakeSize(pFrame->Size());
+ 
 
 
 					const int y_stride = m_frame->GetFrame()->linesize[0];
@@ -63,19 +55,8 @@ namespace mrCommonLib
 					uint8_t* u_data = (uint8_t*)m_frame->GetFrame()->data[1];
 					uint8_t* v_data = (uint8_t*)m_frame->GetFrame()->data[2];
 
+					CConvertPixels::ConvertToI420(pFrame, y_data, u_data, v_data, y_stride, uv_stride);
 
-					const int y_offset = y_stride * rect.Y() + rect.X();
-					const int uv_offset = uv_stride * rect.Y() / 2 + rect.X() / 2;
-
-
-
-					convert_to_i420(pFrame->DataAtPos(rect.TopLeft()),
-						pFrame->Stride(),
-						y_data + y_offset, y_stride,
-						u_data + uv_offset, uv_stride,
-						v_data + uv_offset, uv_stride,
-						rect.Width(),
-						rect.Height());
 
 					m_frame->GetFrame()->pts = m_frameCount;
 					int ret = m_codec->SendFrame(m_frame.get());

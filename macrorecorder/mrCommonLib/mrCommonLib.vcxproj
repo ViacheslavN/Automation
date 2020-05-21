@@ -321,12 +321,13 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalIncludeDirectories>../../../../../ThirdParty/libyuv/include/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../../ThirdParty/libyuv/include/;../../../../../ThirdParty/ffmpeg/</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -391,6 +392,7 @@
     <ClInclude Include="video\ffmpeg\ffmpegUtils.h" />
     <ClInclude Include="video\ffmpeg\FFmpegVideoDecoder.h" />
     <ClInclude Include="video\ffmpeg\FFmpegVideoEncoder.h" />
+    <ClInclude Include="video\FormatConvertor.h" />
     <ClInclude Include="video\PixelTranslator.h" />
     <ClInclude Include="video\VideoDecoder.h" />
     <ClInclude Include="video\VideoEncoder.h" />
@@ -471,6 +473,7 @@
     <ClCompile Include="video\ffmpeg\ffmpegUtils.cpp" />
     <ClCompile Include="video\ffmpeg\FFmpegVideoDecoder.cpp" />
     <ClCompile Include="video\ffmpeg\FFmpegVideoEncoder.cpp" />
+    <ClCompile Include="video\FormatConvertor.cpp" />
     <ClCompile Include="video\PixelTranslator.cpp" />
     <ClCompile Include="video\VideoDecoder.cpp" />
     <ClCompile Include="video\VideoEncoder.cpp" />

@@ -41,8 +41,8 @@
 #pragma comment(lib, "../../../ThirdParty/x265/source/lib/Debug/common.lib")
 #pragma comment(lib, "../../../ThirdParty/x265/source/lib/Debug/encoder.lib")
 #else
-#pragma comment(lib, "../../../ThirdParty/x265/source/lib/Debug/common.lib")
-#pragma comment(lib, "../../../ThirdParty/x265/source/lib/Debug/encoder.lib")
+#pragma comment(lib, "../../../ThirdParty/x265/source/lib/release/common.lib")
+#pragma comment(lib, "../../../ThirdParty/x265/source/lib/release/encoder.lib")
 #endif
 
 
@@ -66,5 +66,5 @@
 #pragma comment(lib, "../../../ThirdParty/ffmpeg/libs/release/libswresample.lib")
 #pragma comment(lib, "../../../ThirdParty/ffmpeg/libs/release/libswscale.lib")
 
-#pragma comment(lib, "../../../ThirdParty/ibvpx/x64/Release/vpxmt.lib")
+#pragma comment(lib, "../../../ThirdParty/libvpx/x64/Release/vpxmt.lib")
 #endif
