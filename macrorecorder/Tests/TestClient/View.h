@@ -24,6 +24,10 @@ public:
 	LRESULT OnPaint(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/);
 
 	void OnStart();
+
+	void ErrorFromThread(std::exception& ex);
+	void UpdateFrame();
+
 private:
 	std::shared_ptr<CClientThread> m_clientThread;
 

@@ -1,9 +1,11 @@
 #pragma once
 
+class CView;
+
 class CClientThread
 {
 public:
-	CClientThread();
+	CClientThread(CView *pView);
 	~CClientThread();
 
 	void Stop();
@@ -14,4 +16,5 @@ private:
 private:
 	CommonLib::synch::ThreadPtr m_thread;
 	CommonLib::network::CClientSocketPtr m_socket;
+	CView *m_pView;
 };

@@ -20,6 +20,7 @@
 #include "../../../CommonLib/log/LogInfo.h"
 #include "../../../CommonLib/stream/stream.h"
 #include "../../../CommonLib/filesystem/File.h"
+#include "../../../CommonLib/data/ByteArray.h"
 
 #ifdef _WIN32
 

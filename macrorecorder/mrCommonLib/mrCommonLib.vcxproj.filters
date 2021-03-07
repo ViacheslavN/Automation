@@ -40,6 +40,15 @@
     <Filter Include="video\x265">
       <UniqueIdentifier>{c717aca7-91e5-4ca7-a275-7657c49b1a5a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="proto">
+      <UniqueIdentifier>{20893418-dc9e-4de1-9fd3-54cc7cdced69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="desktop\cursor">
+      <UniqueIdentifier>{a76f10fb-9ab3-433d-afce-2bcf363f9be1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="desktop\cursor\win">
+      <UniqueIdentifier>{3abd281d-da21-4b79-b2dc-8c99fcc2fe20}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -252,6 +261,33 @@
     <ClInclude Include="video\FormatConvertor.h">
       <Filter>video</Filter>
     </ClInclude>
+    <ClInclude Include="proto\PackageHeader.h">
+      <Filter>proto</Filter>
+    </ClInclude>
+    <ClInclude Include="proto\Packages.h">
+      <Filter>proto</Filter>
+    </ClInclude>
+    <ClInclude Include="proto\FramePackage.h">
+      <Filter>proto</Filter>
+    </ClInclude>
+    <ClInclude Include="proto\VideoSettingPackage.h">
+      <Filter>proto</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\cursor\MouseCursor.h">
+      <Filter>desktop\cursor</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\cursor\CursorCapturer.h">
+      <Filter>desktop\cursor</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\cursor\win\WinCursorCapture.h">
+      <Filter>desktop\cursor\win</Filter>
+    </ClInclude>
+    <ClInclude Include="desktop\cursor\win\CursorUtils.h">
+      <Filter>desktop\cursor\win</Filter>
+    </ClInclude>
+    <ClInclude Include="proto\VideoCodecSettingsPackage.h">
+      <Filter>proto</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mrCommonLib.cpp">
@@ -430,6 +466,27 @@
     </ClCompile>
     <ClCompile Include="video\FormatConvertor.cpp">
       <Filter>video</Filter>
+    </ClCompile>
+    <ClCompile Include="proto\PackageHeader.cpp">
+      <Filter>proto</Filter>
+    </ClCompile>
+    <ClCompile Include="proto\FramePackage.cpp">
+      <Filter>proto</Filter>
+    </ClCompile>
+    <ClCompile Include="proto\VideoSettingPackage.cpp">
+      <Filter>proto</Filter>
+    </ClCompile>
+    <ClCompile Include="desktop\cursor\MouseCursor.cpp">
+      <Filter>desktop\cursor</Filter>
+    </ClCompile>
+    <ClCompile Include="desktop\cursor\win\WinCursorCapture.cpp">
+      <Filter>desktop\cursor\win</Filter>
+    </ClCompile>
+    <ClCompile Include="desktop\cursor\win\CursorUtils.cpp">
+      <Filter>desktop\cursor\win</Filter>
+    </ClCompile>
+    <ClCompile Include="proto\VideoCodecSettingsPackage.cpp">
+      <Filter>proto</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

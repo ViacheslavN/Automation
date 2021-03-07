@@ -6,6 +6,7 @@
 #include "resource.h"
 
 #include "View.h"
+#include "ClientThread.h"
 
 BOOL CView::PreTranslateMessage(MSG* pMsg)
 {
@@ -22,10 +23,23 @@ LRESULT CView::OnPaint(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL
 	return 0;
 }
 
+
+void CView::ErrorFromThread(std::exception& ex)
+{
+
+}
+
+void CView::UpdateFrame()
+{
+
+}
+
 void CView::OnStart()
 {
 	if (m_clientThread.get() != nullptr)
-		m_clientThread->Stop();
+	{
+		m_clientThread.reset(new CClientThread(this));
+	}
 
 
 

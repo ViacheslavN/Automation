@@ -342,6 +342,10 @@
   <ItemGroup>
     <ClInclude Include="desktop\BaseFrame.h" />
     <ClInclude Include="desktop\Color.h" />
+    <ClInclude Include="desktop\cursor\CursorCapturer.h" />
+    <ClInclude Include="desktop\cursor\MouseCursor.h" />
+    <ClInclude Include="desktop\cursor\win\CursorUtils.h" />
+    <ClInclude Include="desktop\cursor\win\WinCursorCapture.h" />
     <ClInclude Include="desktop\DataFrame.h" />
     <ClInclude Include="desktop\differ\differ.h" />
     <ClInclude Include="desktop\differ\diff_block_16bpp_c.h" />
@@ -380,6 +384,11 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="mrCommonLib_lib.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="proto\FramePackage.h" />
+    <ClInclude Include="proto\PackageHeader.h" />
+    <ClInclude Include="proto\Packages.h" />
+    <ClInclude Include="proto\VideoCodecSettingsPackage.h" />
+    <ClInclude Include="proto\VideoSettingPackage.h" />
     <ClInclude Include="video\BaseVideoEncoder.h" />
     <ClInclude Include="video\ffmpeg\AVFrame.h" />
     <ClInclude Include="video\ffmpeg\AVPacket.h" />
@@ -413,6 +422,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="desktop\Color.cpp" />
+    <ClCompile Include="desktop\cursor\MouseCursor.cpp" />
+    <ClCompile Include="desktop\cursor\win\CursorUtils.cpp" />
+    <ClCompile Include="desktop\cursor\win\WinCursorCapture.cpp" />
     <ClCompile Include="desktop\DataFrame.cpp" />
     <ClCompile Include="desktop\differ\differ.cpp" />
     <ClCompile Include="desktop\differ\diff_block_16bpp_c.cpp" />
@@ -463,6 +475,10 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseStatic|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="proto\FramePackage.cpp" />
+    <ClCompile Include="proto\PackageHeader.cpp" />
+    <ClCompile Include="proto\VideoCodecSettingsPackage.cpp" />
+    <ClCompile Include="proto\VideoSettingPackage.cpp" />
     <ClCompile Include="video\BaseVideoEncoder.cpp" />
     <ClCompile Include="video\ffmpeg\AVFrame.cpp" />
     <ClCompile Include="video\ffmpeg\AVPacket.cpp" />

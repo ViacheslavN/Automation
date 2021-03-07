@@ -97,6 +97,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>../../../../CommonLib/Output;../../Output</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Dwmapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -152,15 +153,27 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>../../../../CommonLib/Output;../../Output</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Dwmapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ClientThread.cpp" />
+    <ClCompile Include="CmdHandler\CmdHandler.cpp" />
+    <ClCompile Include="CmdHandler\RemoteDestopSession.cpp" />
+    <ClCompile Include="SvcContext.cpp" />
+    <ClCompile Include="TCPServer.cpp" />
     <ClCompile Include="TestAgent.cpp" />
+    <ClCompile Include="ThreadPool.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClientThread.h" />
+    <ClInclude Include="CmdHandler\CmdHandler.h" />
+    <ClInclude Include="CmdHandler\RemoteDestopSession.h" />
+    <ClInclude Include="SocketQueue.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="SvcContext.h" />
+    <ClInclude Include="TCPServer.h" />
+    <ClInclude Include="ThreadPool.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

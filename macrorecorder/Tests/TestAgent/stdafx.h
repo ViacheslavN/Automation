@@ -15,6 +15,7 @@
 #include "../../../../CommonLib/network/BaseSocketIP.h"
 #include "../../../../CommonLib/network/ServerSocket.h"
 #include "../../../../CommonLib/network/AcceptedSocket.h"
+#include "../../../../CommonLib/network/NetworkStreamIoDev.h"
 #include "../../../../CommonLib/synch/thread.h"
 
 #include "../../../../CommonLib/CommonLib_lib.h"
@@ -23,9 +24,7 @@
 #include "../../mrCommonLib/desktop/win/ScreenCapturerGdi.h"
 #include "../../mrCommonLib/desktop/win/dx/ScreenCapturerDxgi.h"
 #include "../../mrCommonLib/desktop/DataFrame.h"
-
-typedef CommonLib::STLAllocator<byte_t> TAlloc;
-typedef std::vector<byte_t, TAlloc> TVecBuffer;
+#include "../../mrCommonLib/desktop/cursor/CursorCapturer.h"
 
 #include "../../mrCommonLib/video/VideoEncoder.h"
 #include "../../mrCommonLib/video/VideoDecoder.h"

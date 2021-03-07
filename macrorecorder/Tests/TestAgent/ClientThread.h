@@ -1,11 +1,17 @@
 #pragma once
 
 #include "stdafx.h"
+#include "SvcContext.h"
+
+typedef std::shared_ptr<class CClientThread> TCClientThreadPtr;
+typedef CommonLib::synch::TSyncQueue<CommonLib::network::AcceptedSocketPtr> TSocketQueue;
+typedef std::shared_ptr<TSocketQueue> TSocketQueuePtr;
+ 
 
 class CClientThread
 {
 public:
-	CClientThread(CommonLib::network::AcceptedSocketPtr pSocket);
+	CClientThread(TSocketQueuePtr pSocketQueue, TSvcContextPtr pSvcContextPtr);
 	~CClientThread();
 
 
@@ -13,7 +19,10 @@ public:
 
 
 private:
-	CommonLib::network::AcceptedSocketPtr m_socket;
+
+	TSocketQueuePtr m_queue;
 	CommonLib::synch::ThreadPtr m_thread;
 	std::vector<byte_t> m_headerBuff;
+	TSvcContextPtr m_pSvcContextPtr;
+
 };

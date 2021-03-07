@@ -22,7 +22,7 @@ namespace mrCommonLib
 		static const ScreenId kFullDesktopScreenId = -1;
 		static const ScreenId kInvalidScreenId = -2;
 
-
+		typedef std::shared_ptr<class IScreenCapturer> TScreenCapturerPtr;
 		class IScreenCapturer
 		{
 		public:

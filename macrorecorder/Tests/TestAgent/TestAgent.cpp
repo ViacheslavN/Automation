@@ -18,6 +18,8 @@ int main()
 	WORD wVersionRequested = MAKEWORD(2, 2);
 	WSAStartup(wVersionRequested, &wsaData);
 
+	std::vector<TCClientThreadPtr> vecClient;
+
 	try
 	{
 
@@ -34,6 +36,9 @@ int main()
 			
 			auto acceptSocket = serverSocket.Accept();
 
+			Log.InfoT("accept connection from %1", acceptSocket->GetClientAddr());
+
+		//	vecClient.push_back(TClientPtr(new CClientThread(acceptSocket)));
 
 
 
